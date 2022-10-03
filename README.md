@@ -142,6 +142,10 @@ This artifact is a brief presentation about the system to be implemented. Our go
 
 ### 1. Sitemap
 
+The system is organized in different areas, the user edition pages, the news items pages, the pages with administration features and the authentication pages.
+
+![](https://imgur.com/0Nbx3R5.jpg)
+
 ### 2. Wireframes
 
 The two wireframes that we are going to present will be the news feed pages for both visitors and readers.
