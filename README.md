@@ -159,9 +159,9 @@ The two wireframes that we are going to present will be the news feed pages for 
 3. Logout of session
 4. Direct access to the main page
 5. A news item with access to its content
-    5.1 The tile of the new
-    5.2 A news item's related image
-    5.3 A short description of the news item
+    - The tile of the new
+    - A news item's related image
+    - A short description of the news item
 6. Topic selection for news items
 7. News and writers sujestions
 8. Website information
