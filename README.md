@@ -1,4 +1,4 @@
-# GRUPO 131, 1/10/2022
+# GRUPO 131
 
 ## Collaborative News - NARCOS
 
