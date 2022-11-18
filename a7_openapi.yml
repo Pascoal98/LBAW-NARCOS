@@ -2,32 +2,36 @@ openapi: 3.0.0
 
 info:
   version: "1.0"
-  title: "LBAW MediaLibrary Web API"
-  description: "Web Resources Specification (A7) for MediaLibrary"
+  title: "LBAW NARCOS API"
+  description: "Web Resources Specification (A7) for NARCOS"
 
 servers:
-  - url: http://lbaw.fe.up.pt
+  - url: https://lbaw22131.lbaw.fe.up.pt
     description: Production server
 
 externalDocs:
   description: Find more info here.
-  url: https://web.fe.up.pt/~ssn/wiki/teach/lbaw/medialib/a07
+  url: https://git.fe.up.pt/lbaw/lbaw2223/lbaw22131/-/wikis/home
 
 tags:
-  - name: "M01: Authentication and Individual Profile"
-  - name: "M02: Works"
-  - name: "M03: Reviews and Wish list"
-  - name: "M04: Loans"
-  - name: "M05: User Administration and Static pages"
+  - name: "M01: Authentication"
+  - name: "M02: Profile and User Information"
+  - name: "M03: Articles"
+  - name: "M04: Comments"
+  - name: "M05: Topics"
+  - name: "M06: Messages and Notifications"
+  - name: "M07: User Administration"
+  - name: "M08: Static Pages"
 
 paths:
+  # M01: Authentication
   /login:
     get:
       operationId: R101
       summary: "R101: Login Form"
       description: "Provide login form. Access: PUB"
       tags:
-        - "M01: Authentication and Individual Profile"
+        - "M01: Authentication"
       responses:
         "200":
           description: "Ok. Show log-in UI"
@@ -36,7 +40,7 @@ paths:
       summary: "R102: Login Action"
       description: "Processes the login form submission. Access: PUB"
       tags:
-        - "M01: Authentication and Individual Profile"
+        - "M01: Authentication"
 
       requestBody:
         required: true
@@ -47,8 +51,10 @@ paths:
               properties:
                 email: # <!--- form field name
                   type: string
+                  format: email
                 password: # <!--- form field name
                   type: string
+                  format: password
               required:
                 - email
                 - password
@@ -62,8 +68,8 @@ paths:
                 type: string
               examples:
                 302Success:
-                  description: "Successful authentication. Redirect to user profile."
-                  value: "/users/{id}"
+                  description: "Successful authentication. Redirect to homepage"
+                  value: "/"
                 302Error:
                   description: "Failed authentication. Redirect to login form."
                   value: "/login"
@@ -74,7 +80,7 @@ paths:
       summary: "R103: Logout Action"
       description: "Logout the current authenticated used. Access: USR, ADM"
       tags:
-        - "M01: Authentication and Individual Profile"
+        - "M01: Authentication"
       responses:
         "302":
           description: "Redirect after processing logout."
@@ -85,7 +91,7 @@ paths:
               examples:
                 302Success:
                   description: "Successful logout. Redirect to login form."
-                  value: "/login"
+                  value: "/"
 
   /register:
     get:
@@ -93,7 +99,7 @@ paths:
       summary: "R104: Register Form"
       description: "Provide new user registration form. Access: PUB"
       tags:
-        - "M01: Authentication and Individual Profile"
+        - "M01: Authentication"
       responses:
         "200":
           description: "Ok. Show sign-up UI"
@@ -103,7 +109,7 @@ paths:
       summary: "R105: Register Action"
       description: "Processes the new user registration form submission. Access: PUB"
       tags:
-        - "M01: Authentication and Individual Profile"
+        - "M01: Authentication"
 
       requestBody:
         required: true
@@ -112,16 +118,23 @@ paths:
             schema:
               type: object
               properties:
-                name:
+                username:
                   type: string
                 email:
                   type: string
-                picture:
+                password:
+                  type: string
+                date_of_birth:
+                  type: string
+                  format: date
+                avatar:
                   type: string
                   format: binary
               required:
+                - username
                 - email
                 - password
+                - date_of_birth
 
       responses:
         "302":
@@ -132,19 +145,21 @@ paths:
                 type: string
               examples:
                 302Success:
-                  description: "Successful authentication. Redirect to user profile."
-                  value: "/users/{id}"
+                  description: "Successful authentication. Redirect to homepage."
+                  value: "/"
                 302Failure:
-                  description: "Failed authentication. Redirect to login form."
-                  value: "/login"
+                  description: "Failed authentication. Redirect to register form."
+                  value: "/register"
+
+  # M02 : Profile and User Information
 
   /users/{id}:
     get:
-      operationId: R106
-      summary: "R106: View user profile"
-      description: "Show the individual user profile. Access: USR"
+      operationId: R201
+      summary: "R201: View user profile"
+      description: "Show the individual user profile. Access: PUB"
       tags:
-        - "M01: Authentication and Individual Profile"
+        - "M02: Profile and User Information"
 
       parameters:
         - in: path
@@ -156,6 +171,86 @@ paths:
       responses:
         "200":
           description: "Ok. Show view profile UI"
+        "404":
+          description: "User not found"
+
+    put:
+      operationId: R202
+      summary: "R202: Edit user profile"
+      description: "Processes the user edit profile form submission, Acess: OWN"
+      tags:
+        - "M02: Profile and User Information"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                date_of_birth:
+                  type: string
+                  format: date
+                avatar:
+                  type: string
+                  format: binary
+
+      reponses:
+        "302":
+          description: "Redirect after processing the user updated information"
+          header:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful profile edition. Redirect to user profile."
+                  value: "/user/{id}"
+                302Failure:
+                  description: "Failed profile edition. Redirect to edit profile form."
+                  value: "/user/{id}/edit"
+
+    delete:
+      operationId: R203
+      summary: "R203: Delete user profile"
+      description: "Processes a request to delete the user's account, Acess: OWN"
+      tags:
+        - "M02: Profile and User Information"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      reponses:
+        "302":
+          description: "Redirect after deleting user account."
+          header:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful user account deletion. Redirect to homepage."
+                  value: "/"
+                302Failure:
+                  description: "Failed delete user account. Redirect to user profile."
+                  value: "/user/{id}"
 
   /api/works:
     get:
