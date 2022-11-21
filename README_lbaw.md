@@ -313,7 +313,7 @@ There should be only one image per group. All team members should be able to upd
 After building it, you can test locally the image by running:
 
 ```bash
-docker run -it -p 8000:80 --name=lbawYYXX -e DB_DATABASE="lbawYYXX" -e DB_SCHEMA="lbawYYXX" -e DB_USERNAME="lbawYYXX" -e DB_PASSWORD="PASSWORD" git.fe.up.pt:5050/lbaw/lbawYYYY/lbawYYXX # Replace with your group's image name
+docker run -it -p 8000:80 --name=lbaw22131 -e DB_DATABASE="lbaw22131" -e DB_SCHEMA="lbaw22131" -e DB_USERNAME="lbaw22131" -e DB_PASSWORD="Hmvzunzg" git.fe.up.pt:5050/lbaw/lbaw22131/lbaw22131 # Replace with your group's image name
 ```
 
 The above command exposes your application on http://localhost:8000.
