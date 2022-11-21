@@ -128,7 +128,6 @@ CREATE TABLE notification(
   receiver_id INTEGER NOT NULL REFERENCES authenticated_user(id) ON DELETE CASCADE ON UPDATE CASCADE,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   is_read BOOLEAN DEFAULT false,
-  msg TEXT NOT NULL,
   fb_giver INTEGER REFERENCES authenticated_user(id) ON DELETE CASCADE ON UPDATE CASCADE,
   rated_post INTEGER REFERENCES post(id) ON DELETE CASCADE ON UPDATE CASCADE,
   new_comment INTEGER REFERENCES comment(post_id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -242,8 +241,8 @@ BEGIN
     UPDATE authenticated_user SET reputation = reputation + feedback_value
     WHERE id = author_id;
 
-    INSERT INTO notification(receiver_id, is_read, msg, fb_giver, rated_post, new_comment, type)
-    VALUES (author_id, FALSE, NULL, NEW.user_id, NEW.post_id, NULL, 'FEEDBACK');
+    INSERT INTO notification(receiver_id, is_read, fb_giver, rated_post, new_comment, type)
+    VALUES (author_id, FALSE, NEW.user_id, NEW.post_id, NULL, 'FEEDBACK');
 
     RETURN NULL;
 END
@@ -360,7 +359,7 @@ CREATE TRIGGER delete_comment
 CREATE FUNCTION add_article_topic_check() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-    IF ((SELECT state FROM topic WHERE NEW.topic_id = topic.id) <> 'ACCEPTED')
+    IF ((SELECT status FROM topic WHERE NEW.topic_id = topic.id) <> 'ACCEPTED')
     THEN
         RAISE EXCEPTION 'You cannot associate an article to an Unaccepted topic';
     END IF;
@@ -454,11 +453,11 @@ DECLARE parent_author INTEGER = (
 );
 BEGIN
   IF parent_author IS NULL THEN
-    INSERT INTO notification(receiver_id, is_read, msg, fb_giver, rated_post, new_comment, type) 
-        VALUES (article_author, FALSE, NULL, NULL, NULL, NEW.post_id, 'COMMENT');
+    INSERT INTO notification(receiver_id, is_read, fb_giver, rated_post, new_comment, type) 
+        VALUES (article_author, FALSE, NULL, NULL, NEW.post_id, 'COMMENT');
   ELSE
-    INSERT INTO notification(receiver_id, is_read, msg, fb_giver, rated_post, new_comment, type) 
-        VALUES (parent_author, FALSE, NULL, NULL, NULL, NEW.post_id, 'COMMENT');
+    INSERT INTO notification(receiver_id, is_read, fb_giver, rated_post, new_comment, type) 
+        VALUES (parent_author, FALSE, NULL, NULL, NEW.post_id, 'COMMENT');
   END IF;
   RETURN NULL;
 END

@@ -128,7 +128,6 @@ CREATE TABLE notification(
   receiver_id INTEGER NOT NULL REFERENCES authenticated_user(id) ON DELETE CASCADE ON UPDATE CASCADE,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   is_read BOOLEAN DEFAULT false,
-  msg TEXT NOT NULL,
   fb_giver INTEGER REFERENCES authenticated_user(id) ON DELETE CASCADE ON UPDATE CASCADE,
   rated_post INTEGER REFERENCES post(id) ON DELETE CASCADE ON UPDATE CASCADE,
   new_comment INTEGER REFERENCES comment(post_id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -242,8 +241,8 @@ BEGIN
     UPDATE authenticated_user SET reputation = reputation + feedback_value
     WHERE id = author_id;
 
-    INSERT INTO notification(receiver_id, is_read, msg, fb_giver, rated_post, new_comment, type)
-    VALUES (author_id, FALSE, NULL, NEW.user_id, NEW.post_id, NULL, 'FEEDBACK');
+    INSERT INTO notification(receiver_id, is_read, fb_giver, rated_post, new_comment, type)
+    VALUES (author_id, FALSE, NEW.user_id, NEW.post_id, NULL, 'FEEDBACK');
 
     RETURN NULL;
 END
@@ -360,7 +359,7 @@ CREATE TRIGGER delete_comment
 CREATE FUNCTION add_article_topic_check() RETURNS TRIGGER AS
 $BODY$
 BEGIN
-    IF ((SELECT state FROM topic WHERE NEW.topic_id = topic.id) <> 'ACCEPTED')
+    IF ((SELECT status FROM topic WHERE NEW.topic_id = topic.id) <> 'ACCEPTED')
     THEN
         RAISE EXCEPTION 'You cannot associate an article to an Unaccepted topic';
     END IF;
@@ -454,11 +453,11 @@ DECLARE parent_author INTEGER = (
 );
 BEGIN
   IF parent_author IS NULL THEN
-    INSERT INTO notification(receiver_id, is_read, msg, fb_giver, rated_post, new_comment, type) 
-        VALUES (article_author, FALSE, NULL, NULL, NULL, NEW.post_id, 'COMMENT');
+    INSERT INTO notification(receiver_id, is_read, fb_giver, rated_post, new_comment, type) 
+        VALUES (article_author, FALSE, NULL, NULL, NEW.post_id, 'COMMENT');
   ELSE
-    INSERT INTO notification(receiver_id, is_read, msg, fb_giver, rated_post, new_comment, type) 
-        VALUES (parent_author, FALSE, NULL, NULL, NULL, NEW.post_id, 'COMMENT');
+    INSERT INTO notification(receiver_id, is_read, fb_giver, rated_post, new_comment, type) 
+        VALUES (parent_author, FALSE, NULL, NULL, NEW.post_id, 'COMMENT');
   END IF;
   RETURN NULL;
 END
@@ -508,18 +507,18 @@ VALUES
     ('Kick her out of this website please', TO_TIMESTAMP('2021-11-30', 'YYYY-MM-DD'), False, 3,4),
     ('Told me to oof myself', TO_TIMESTAMP('2021-01-24', 'YYYY-MM-DD'), True, 13,4);
 
-INSERT INTO topic (subject, proposed_at, status, proposer_id)
+INSERT INTO topic (subject, topic_date, status, user_id)
 VALUES
-    ('Sports', TO_TIMESTAMP('2021-10-03', 'YYYY-MM-DD'), 'Accepted',1),
-    ('Movies', TO_TIMESTAMP('2022-07-01', 'YYYY-MM-DD'), 'Accepted',2),
-    ('Anime', TO_TIMESTAMP('2021-01-20', 'YYYY-MM-DD'), 'Accepted',3),
-    ('Crime', TO_TIMESTAMP('2020-12-31', 'YYYY-MM-DD'), 'Rejected',4),
-    ('Health', TO_TIMESTAMP('2022-04-09', 'YYYY-MM-DD'), 'Accepted',5),
-    ('Science', TO_TIMESTAMP('2022-07-01', 'YYYY-MM-DD'), 'Accepte',6),
-    ('Fights', TO_TIMESTAMP('2022-08-05', 'YYYY-MM-DD'), 'Accepted',7),
-    ('Religion', TO_TIMESTAMP('2022-06-26', 'YYYY-MM-DD'), 'Accepted',8),
-    ('Law', TO_TIMESTAMP('2021-02-24', 'YYYY-MM-DD'), 'Accepted',9),
-    ('Games', TO_TIMESTAMP('2021-10-01', 'YYYY-MM-DD'), 'Pending',10);
+    ('Sports', TO_TIMESTAMP('2021-10-03', 'YYYY-MM-DD'), 'ACCEPTED',1),
+    ('Movies', TO_TIMESTAMP('2022-07-01', 'YYYY-MM-DD'), 'ACCEPTED',2),
+    ('Anime', TO_TIMESTAMP('2021-01-20', 'YYYY-MM-DD'), 'ACCEPTED',3),
+    ('Crime', TO_TIMESTAMP('2020-12-31', 'YYYY-MM-DD'), 'REJECTED',4),
+    ('Health', TO_TIMESTAMP('2022-04-09', 'YYYY-MM-DD'), 'ACCEPTED',5),
+    ('Science', TO_TIMESTAMP('2022-07-01', 'YYYY-MM-DD'), 'ACCEPTED',6),
+    ('Fights', TO_TIMESTAMP('2022-08-05', 'YYYY-MM-DD'), 'ACCEPTED',7),
+    ('Religion', TO_TIMESTAMP('2022-06-26', 'YYYY-MM-DD'), 'ACCEPTED',8),
+    ('Law', TO_TIMESTAMP('2021-02-24', 'YYYY-MM-DD'), 'ACCEPTED',9),
+    ('Games', TO_TIMESTAMP('2021-10-01', 'YYYY-MM-DD'), 'PENDING',10);
 
 INSERT INTO follow (follower_id, followed_id)
 VALUES
@@ -536,7 +535,7 @@ VALUES
     (6,2);
 
 INSERT INTO post (body, published_date, is_edited, likes, dislikes, author_id)
-VALUE
+VALUEs
     ('When referring Center on', TO_TIMESTAMP('1977-08-31', 'YYYY-MM-DD'), False, 54, 75, 1),
     ('Become attached or étages. These physical types, in', TO_TIMESTAMP('1954-06-07', 'YYYY-MM-DD'), False, 12, 2, 3),
     ('Simple compounds, Christian Andersen (1805–1875), the philosophical works of Jābir ibn Hayyān (721–815 CE), al-Battani', TO_TIMESTAMP('1947-11-24', 'YYYY-MM-DD'), False, 51, 16, 2),
@@ -546,22 +545,15 @@ VALUE
     ('Crossed from or low-pressure', TO_TIMESTAMP('2014-11-18', 'YYYY-MM-DD'), False, 61, 5, 9),
     ('(corn and Montana, which has eleven judges appointed by the crown and the', TO_TIMESTAMP('1938-12-02', 'YYYY-MM-DD'), False, 9, 31, 13);
 
-INSERT INTO article (post_id, title, thumbnail)
-VALUE  
+INSERT INTO article (post_id, title, thumbnail) 
+VALUES
     (1, 'Boasted a strong tongue (containing similar touch receptors to', 'https://imgur.com/gJglZK.jpg'),
     (2, 'Threaten Egypts main systems of considerable Amerindian ancestry form the Downtown Loop, runs 2.7 miles', 'https://imgur.com/uvIeAn.jpg'),
     (3, 'One "fair" secure Virtual', 'https://imgur.com/HJaWqL.jpg'),
-    (4, 'Prediction must tasks, but on', 'https://imgur.com/djlhDb.jpg'),
-
-INSERT INTO comment (post_id, article_id, parent_comment_id)
-VALUE
-    (7,1,NULL),
-    (2,3,NULL),
-    (5,4,NULL),
-    (7,5,NULL);
+    (4, 'Prediction must tasks, but on', 'https://imgur.com/djlhDb.jpg');
 
 INSERT INTO feedback (user_id, post_id, is_like)
-VALUE
+VALUES
     (1,2,True),
     (2,5,False),
     (6,1,True),
@@ -569,7 +561,7 @@ VALUE
     (14, 4, False);
 
 INSERT INTO article_topic(article_id, topic_id)
-VALUE
+VALUES
     (1,3),
     (2,2),
     (3,7),
