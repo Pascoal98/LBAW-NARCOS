@@ -4,11 +4,11 @@
 <form method="POST" action="{{ route('register') }}">
     {{ csrf_field() }}
 
-    <label for="name">Name</label>
-    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
-    @if ($errors->has('name'))
+    <label for="username">Username</label>
+    <input id="username" type="text" name="username" value="{{ old('username') }}" required autofocus>
+    @if ($errors->has('username'))
       <span class="error">
-          {{ $errors->first('name') }}
+          {{ $errors->first('username') }}
       </span>
     @endif
 
@@ -31,6 +31,17 @@
     <label for="password-confirm">Confirm Password</label>
     <input id="password-confirm" type="password" name="password_confirmation" required>
 
+    <label for="date_of_birth">Date of birth</label>
+    <input id="date_of_birth" type="text" name="date_of_birth" required>
+    @if ($errors->has('date_of_birth'))
+      <span class="error">
+          {{ $errors->first('date_of_birth') }}
+      </span>
+    @endif
+
+    <label for="avatar">Avatar</label>
+    <input id="avatar" type="file" name="avatar" required>
+    
     <button type="submit">
       Register
     </button>
