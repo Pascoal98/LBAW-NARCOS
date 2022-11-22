@@ -22,3 +22,8 @@ Route::post('register', 'Auth\RegisterController@register');
 
 // User
 Route::get('user/{id}', 'UserController@show')->name('userProfile')->where(['id' => '[0-9]+']);
+Route::get('user/{id}/edit', 'UserController@edit')->name('editProfile')->where(['id' => '[0-9]+']);
+
+//Static Pages
+Route::get('about', 'StaticPagesController@getAboutUs')->name('about');
+Route::get('faq', 'StaticPagesController@getFAQ')->name('faq');

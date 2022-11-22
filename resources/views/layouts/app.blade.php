@@ -25,7 +25,7 @@
       <header>
         <h1><a href="{{ url('/') }}">NARCOS</a></h1>
         @if (Auth::check())
-        <a href="{{url('/users/'. Auth::id()) }}"> My Profile </a>
+        <a href="{{url('/user/'. Auth::id()) }}"> My Profile </a>
         <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
         @else
         <a class="button" href="{{ url('/login') }}"> Login </a>
