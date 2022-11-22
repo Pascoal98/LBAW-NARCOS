@@ -16,12 +16,6 @@ class UserController extends Controller
 {
     private const USER_ARTICLES_LIMIT = 5;
 
-    /**
-     * Display the User profile.
-     *
-     * @param  int $id Id of the user
-     * @return View
-     */
     public function show(int $id)
     {
         $user = User::find($id);
@@ -68,12 +62,28 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the user profile.
-     *
-     * @param  int $id
-     * @return View
-     */
+    public function delete(Request $request, int $id): RedirectResponse
+    {
+        $user = User::find($id);
+        if (is_null($user))
+            return redirect()->back()->withErrors(['user' => 'User not found, id: ' . $id]);
+
+        $this->authorize('delete', $user);
+
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|password'
+        ]);
+
+        if ($validator->fails())
+            return redirect()->back()->withErrors($validator->errors());
+
+        $deleted = $user->delete();
+        if ($deleted)
+            return redirect('/');
+        else
+            return redirect()->back()->withErrors(['user' => 'Failed to delete user account. Try again later']);
+    }
+
     public function edit(int $id)
     {
         $user = User::find($id);
@@ -106,13 +116,43 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    public function report(Request $request, int $id)
+    {
+        $user = User::find($id);
+        if (is_null($user))
+            return response()->json([
+                'status' => 'Not Found',
+                'msg' => 'User not found, id: ' . $id,
+                'errors' => ['user' => 'User not found, id: ' . $id]
+            ], 404);
+
+        $this->authorize('report', $user);
+
+        $validator = Validator::make($request->all(), [
+            'reason' => 'required|string|min:5|max:200',
+        ]);
+
+        if ($validator->fails())
+            return response()->json([
+                'status' => 'Bad Request',
+                'msg' => 'Reason must have a number of characters between 5 and 200.',
+                'errors' => $validator->errors(),
+            ], 400);
+
+        $report = new Report();
+        $report->reason = $request->reason;
+        $report->reported_id = $id;
+        $report->reporter_id = Auth::id();
+        $report->reported_at = gmdate('Y-m-d H:i:s');
+        $report->save();
+
+        return response()->json([
+            'status' => 'OK',
+            'msg' => 'Successful user report',
+            'id' => $report->id
+        ], 200);
+    }
+
     public function update(Request $request, int $id): RedirectResponse
     {
         $user = User::find($id);
@@ -159,113 +199,6 @@ class UserController extends Controller
         return redirect("/user/${id}");
     }
 
-    /**
-     * Deletes a user account.
-     *
-     * @param  Illuminate\Http\Request  $request
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function delete(Request $request, int $id): RedirectResponse
-    {
-        $user = User::find($id);
-        if (is_null($user))
-            return redirect()->back()->withErrors(['user' => 'User not found, id: ' . $id]);
-
-        $this->authorize('delete', $user);
-
-        $validator = Validator::make($request->all(), [
-            'password' => 'required|string|password'
-        ]);
-
-        if ($validator->fails())
-            return redirect()->back()->withErrors($validator->errors());
-
-        $deleted = $user->delete();
-        if ($deleted)
-            return redirect('/');
-        else
-            return redirect()->back()->withErrors(['user' => 'Failed to delete user account. Try again later']);
-    }
-
-    /**
-     * Reports a user account.
-     * 
-     * @param  Illuminate\Http\Request  $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function report(Request $request, int $id)
-    {
-        $user = User::find($id);
-        if (is_null($user))
-            return response()->json([
-                'status' => 'Not Found',
-                'msg' => 'User not found, id: ' . $id,
-                'errors' => ['user' => 'User not found, id: ' . $id]
-            ], 404);
-
-        $this->authorize('report', $user);
-
-        $validator = Validator::make($request->all(), [
-            'reason' => 'required|string|min:5|max:200',
-        ]);
-
-        if ($validator->fails())
-            return response()->json([
-                'status' => 'Bad Request',
-                'msg' => 'Reason must have a number of characters between 5 and 200.',
-                'errors' => $validator->errors(),
-            ], 400);
-
-        $report = new Report();
-        $report->reason = $request->reason;
-        $report->reported_id = $id;
-        $report->reporter_id = Auth::id();
-        $report->reported_at = gmdate('Y-m-d H:i:s');
-        $report->save();
-
-        return response()->json([
-            'status' => 'OK',
-            'msg' => 'Successful user report',
-            'id' => $report->id
-        ], 200);
-    }
-
-    /**
-     * Information on the user's suspension
-     * 
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function suspension(int $id)
-    {
-        $user = User::find($id);
-        if (is_null($user))
-            return response()->json([
-                'status' => 'Not Found',
-                'msg' => 'User not found, id: ' . $id,
-                'errors' => ['user' => 'User not found, id: ' . $id]
-            ], 404);
-
-        $this->authorize('suspension', $user);
-
-        if (!$user->is_suspended)
-            return response()->json([
-                'status' => 'Conflict',
-                'msg' => 'User is not suspended, id: ' . $id,
-                'errors' => ['user' => 'User is not suspended, id: ' . $id]
-            ], 409);
-
-        return $user->suspensionEndInfo();
-    }
-
-    /**
-     * Display the given user's followed users
-     * 
-     * @param int $id
-     * @return View
-     */
     public function followed(int $id)
     {
         $user = User::find($id);
@@ -290,50 +223,6 @@ class UserController extends Controller
         return view('pages.user.followedUsers', [
             'users' => $followedUsers,
         ]);
-    }
-
-    /**
-     * Return html with the user's written articles
-     * 
-     * @param  Illuminate\Http\Request  $request
-     * @param int $id
-     * @return \Illuminate\Http\Response|View
-     */
-    public function articles(Request $request, int $id)
-    {
-        $user = User::find($id);
-        if (is_null($user))
-            return response()->json([
-                'status' => 'Not Found',
-                'msg' => 'User not found, id: ' . $id,
-                'errors' => ['user' => 'User not found, id: ' . $id]
-            ], 404);
-
-        $validator = Validator::make($request->all(), [
-            'offset' => 'nullable|integer|min:0',
-            'limit' => 'nullable|integer|min:1',
-        ]);
-
-        if ($validator->fails())
-            return response()->json([
-                'status' => 'Bad Request',
-                'msg' => 'Failed to fetch user\'s articles. Bad request',
-                'errors' => $validator->errors(),
-            ], 400);
-
-        if (!isset($request->offset)) $request->offset = 0;
-
-        $userArticles = $user->articles()->map(fn ($article) => $article
-            ->only('id', 'title', 'thumbnail', 'body', 'published_at', 'likes', 'dislikes'))
-            ->sortByDesc('published_at')->skip($request->offset);
-
-        $canLoadMore = isset($request->limit) ? count($userArticles) > $request->limit : false;
-        $articles = $userArticles->take($request->limit);
-
-        return response()->json([
-            'html' => view('partials.content.articles', ['articles' => $articles])->render(),
-            'canLoadMore' => $canLoadMore
-        ], 200);
     }
 
     public function follow(int $id)

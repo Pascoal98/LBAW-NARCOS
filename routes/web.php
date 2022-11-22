@@ -23,6 +23,12 @@ Route::post('register', 'Auth\RegisterController@register');
 // User
 Route::get('user/{id}', 'UserController@show')->name('userProfile')->where(['id' => '[0-9]+']);
 Route::get('user/{id}/edit', 'UserController@edit')->name('editProfile')->where(['id' => '[0-9]+']);
+Route::put('user/{id}', 'UserController@update')->name('editProfile')->where(['id' => '[0-9]+']);
+Route::delete('user/{id}', 'UserController@delete')->name('deleteUser')->where(['id' => '[0-9]+']);
+Route::post('user/{id}/report', 'UserController@report')->where(['id' => '[0-9]+']);
+Route::get('user/{id}/followed', 'UserController@followed')->name('followedUsers')->where(['id' => '[0-9]+']);
+Route::post('user/{id}/follow', 'UserController@follow')->where(['id' => '[0-9]+']);
+Route::post('user/{id}/unfollow', 'UserController@unfollow')->where(['id' => '[0-9]+']);
 
 //Static Pages
 Route::get('about', 'StaticPagesController@getAboutUs')->name('about');

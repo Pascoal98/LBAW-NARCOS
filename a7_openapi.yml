@@ -252,6 +252,137 @@ paths:
                   description: "Failed delete user account. Redirect to user profile."
                   value: "/user/{id}"
 
+  /user/{id}/edit:
+    get:
+      operationId: R204
+      summary: "R204: User profile edition form"
+      description: "Show edition of user profile. Access: OWN"
+      tags:
+        - "M02: Profile and User Information"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Show user profile edition."
+        "401":
+          description: "Unauthorized. Not authenticated."
+        "403":
+          description: "No access allowed. Must be the owner."
+        "404":
+          description: "User not found"
+
+  /user/{id}/report:
+    get:
+      operationId: R205
+      summary: "R205: Report user"
+      description: "Report other user. Access: USR"
+      tags:
+        - "M02: Profile and User Information"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                required:
+                  - reason
+
+      responses:
+        "200":
+          description: "User reported."
+        "400":
+          description: "Failed to report user. Bad request"
+        "401":
+          description: "Unauthorized. Not authenticated."
+        "404":
+          description: "User not found"
+
+  /user/{id}/followed:
+    get:
+      operationId: R206
+      summary: "R206: Followed users"
+      description: "List of the users that that the user follows. Access: OWN"
+      tags:
+        - "M02: Profile and User Information"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Show list of followed users."
+        "401":
+          description: "Unauthorized. Not authenticated."
+        "404":
+          description: "User not found"
+
+  /user/{id}/follow:
+    get:
+      operationId: R207
+      summary: "R207: Follow user"
+      description: "Follow user. Access: USR"
+      tags:
+        - "M02: Profile and User Information"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "User followed."
+        "401":
+          description: "Unauthorized. Not authenticated."
+        "404":
+          description: "User not found"
+
+  /user/{id}/unfollow:
+    get:
+      operationId: R208
+      summary: "R208: unfollow user"
+      description: "Unfollow user. Access: USR"
+      tags:
+        - "M02: Profile and User Information"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "User unfollowed."
+        "401":
+          description: "Unauthorized. Not authenticated."
+        "404":
+          description: "User not found"
+
   # M08 Static Pages
 
   /about:
