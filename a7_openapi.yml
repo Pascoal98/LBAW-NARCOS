@@ -69,7 +69,7 @@ paths:
               examples:
                 302Success:
                   description: "Successful authentication. Redirect to homepage"
-                  value: "/"
+                  value: "/register"
                 302Error:
                   description: "Failed authentication. Redirect to login form."
                   value: "/login"
@@ -145,8 +145,8 @@ paths:
                 type: string
               examples:
                 302Success:
-                  description: "Successful authentication. Redirect to homepage."
-                  value: "/"
+                  description: "Successful authentication. Redirect to login form."
+                  value: "/login"
                 302Failure:
                   description: "Failed authentication. Redirect to register form."
                   value: "/register"

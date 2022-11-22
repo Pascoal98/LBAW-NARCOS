@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/cards';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -48,24 +48,30 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:authenticated_user',
             'password' => 'required|string|min:6|confirmed',
-        ]);
+            'date_of_birth' => 'required|string|date_format:Y-m-d|before_or_equal:'.date('Y-m-d', strtotime('-13 years')),
+            'avatar' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:4096',
+        ],['before_or_equal' => 'You must be at least 12 years old']);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
+    protected function create(array $data) {
+
+        $timestamp = strtotime($data['date_of_birth']);
+
+        if(isset($data['avatar'])) {
+            $avatar = $data['avatar'];
+            $imgName = round(microtime(true)*1000).'.'.$avatar->extension();
+            $avatar->storeAs('public/avatars', $imgName);
+        }
+
         return User::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'date_of_birth' => gmdate('Y-m-d H:i:s', $timestamp),
+            'avatar' => isset($data['avatar']) ? $imgName : null,
         ]);
     }
 }
