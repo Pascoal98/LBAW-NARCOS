@@ -2,27 +2,11 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbarContainer">
         <div class="container-fluid py-4">
             <a id="logo" class="navbar-brand text-center w-25" href="{{ url('/') }}">NARCOS</a>
-            
             <div class="d-flex d-lg-none justify-content-end align-items-center position-relative flex-grow-1">
                 @if (Auth::check())
                     <a id="createArticleIcon" class="nav-item mx-3" href="{{ route('createArticle') }}">
                         <i class="purpleLink fas fa-plus-circle fa-2x"></i>
                     </a>
-                    <div class="nav-item mx-3 position-relative">
-                        <i class="fas fa-bell notification-bell" onclick="fetchNotifications()"
-                        type="button" data-bs-toggle="collapse" data-bs-target="#notificationPanelMobile"
-                        aria-expanded="false" aria-controls="notificationPanelMobile"></i>
-
-                        @if ($newNotifications)
-                            <div id="newNotificationsCircleMobile"
-                                class="border border-4 border-warning rounded-circle position-absolute start-100"></div>
-                        @endif
-                    </div>
-
-                    <div id="notificationPanelMobile"
-                        class="collapse container-md position-absolute bg-dark border border-light mt-2 p-0 top-100">
-                        <div class="text-center">Loading...</div>
-                    </div>
 
                     <div id="dropdownContainer" class="nav-item dropdown ms-3 me-4">
                         <img id="dropdownAvatar" class="nav-link px-0 dropdown-toggle py-0" role="button"
@@ -51,7 +35,7 @@
                 @else
                     <div class="nav-item">
                         <a href={{ route('login') }} class="button my-0 px-3 me-3">Login</a>
-                        <a href={{ route('signup') }} class="button my-0 px-3 me-3 button-secondary">Signup</a>
+                        <a href={{ route('register') }} class="button my-0 px-3 me-3 button-secondary">Signup</a>
                     </div>
                 @endif
             </div>
