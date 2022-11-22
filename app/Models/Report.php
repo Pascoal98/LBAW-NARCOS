@@ -10,11 +10,6 @@ class Report extends Model
 
     protected $table = 'report';
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [
         'is_closed',
     ];
