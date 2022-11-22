@@ -31,6 +31,7 @@
       <section id="content">
         @yield('content')
       </section>
+      @include('partials.footer')
     </main>
   </body>
 </html>
