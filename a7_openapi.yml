@@ -170,7 +170,7 @@ paths:
 
       responses:
         "200":
-          description: "Ok. Show view profile UI"
+          description: "Ok. Show user profile."
         "404":
           description: "User not found"
 
@@ -251,3 +251,29 @@ paths:
                 302Failure:
                   description: "Failed delete user account. Redirect to user profile."
                   value: "/user/{id}"
+
+  # M08 Static Pages
+
+  /about:
+    get:
+      operationId: "R801"
+      summary: "R801: About Page"
+      description: "Page with information about us. Access: PUB"
+      tag:
+        - "M08: Static Pages"
+
+      responses:
+        "200":
+          description: "Ok. Show about us page."
+
+  /faq:
+    get:
+      operationId: "R802"
+      summary: "R802: Frequently Asked Questions"
+      description: "Page with the most frequent asked question. Access: PUB"
+      tag:
+        - "M08: Static Pages"
+
+      responses:
+        "200":
+          description: "Ok. Show FAQ."
