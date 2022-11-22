@@ -36,7 +36,6 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follow', 'follower_id', 'followed_id');
     }
 
-
     public function suspensions()
     {
         return $this->hasMany(Suspension::class, 'user_id');
@@ -57,11 +56,6 @@ class User extends Authenticatable
         return $this->hasMany(Tag::class, 'user_id');
     }
 
-
-    public function favoriteTopics()
-    {
-        return $this->belongsToMany(Tag::class, 'favorite_topic', 'user_id');
-    }
 
     public function content()
     {
