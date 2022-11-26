@@ -30,6 +30,20 @@ Route::get('user/{id}/followed', 'UserController@followed')->name('followedUsers
 Route::post('user/{id}/follow', 'UserController@follow')->where(['id' => '[0-9]+']);
 Route::post('user/{id}/unfollow', 'UserController@unfollow')->where(['id' => '[0-9]+']);
 
+// Articles
+Route::get('article', 'ArticleController@createForm')->name('createArticle');
+Route::post('article', 'ArticleController@create');
+Route::get('article/{id}', 'ArticleController@show')->name('article')->where(['id' => '[0-9]+']);
+Route::get('article/{id}/edit', 'ArticleController@edit')->name('editArticle')->where(['id' => '[0-9]+']);
+Route::put('article/{id}/edit', 'ArticleController@update')->where(['id' => '[0-9]+']);
+Route::delete('article/{id}', 'ArticleController@delete')->where(['id' => '[0-9]+']);
+
+
+// Search
+Route::get('search', 'SearchController@show')->name('search');
+Route::get('search/users', 'SearchController@searchUsers');
+Route::get('search/articles', 'SearchController@searchArticles');
+
 //Static Pages
 Route::get('about', 'StaticPagesController@getAboutUs')->name('about');
 Route::get('faq', 'StaticPagesController@getFAQ')->name('faq');
