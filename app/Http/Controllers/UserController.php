@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Report;
-use App\Models\Tag;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +28,6 @@ class UserController extends Controller
             'email' => $user->email,
             'date_of_birth' => $user->date_of_birth,
             'is_admin' => $user->is_admin,
-            'description' => $user->description,
             'avatar' => $user->avatar,
             'is_suspended' => $user->is_suspended,
             'reputation' => $user->reputation,
@@ -45,8 +44,8 @@ class UserController extends Controller
         $followerCount = count($user->followers);
 
         $articles = $user->articles()->map(fn ($article) => $article
-            ->only('id', 'title', 'thumbnail', 'body', 'published_at', 'likes', 'dislikes'))
-            ->sortByDesc('published_at');
+            ->only('id', 'title', 'thumbnail', 'body', 'published_date', 'likes', 'dislikes'))
+            ->sortByDesc('published_date');
 
         $canLoadMore = count($articles) > $this::USER_ARTICLES_LIMIT;
 
@@ -96,12 +95,9 @@ class UserController extends Controller
             'id' => $id,
             'username' => $user->username,
             'email' => $user->email,
-            'date_of_birth' => $user->birth_date,
+            'date_of_birth' => $user->date_of_birth,
             'isAdmin' => $user->is_admin,
-            'description' => $user->description,
             'avatar' => $user->avatar,
-            'country' => $user->country,
-            'city' => $user->city,
             'is_suspended' => $user->is_suspended,
             'reputation' => $user->reputation,
         ];
@@ -169,7 +165,6 @@ class UserController extends Controller
             // Minimum: 12 years old
             'date_of_birth' => 'nullable|string|date_format:Y-m-d|before_or_equal:'.date('Y-m-d', strtotime('-12 years')),
             'avatar' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:4096', // max 5MB
-            'description' => 'nullable|string|max:500',
         ], ['before_or_equal' => 'You must be at least 12 years old']);
 
 
@@ -177,9 +172,6 @@ class UserController extends Controller
         if (isset($request->email)) $user->email = $request->email;
         if (isset($request->new_password)) $user->password = bcrypt($request->new_password);
         if (isset($request->date_of_birth)) $user->birth_date = $request->date_of_birth;
-        if (isset($request->country)) $user->country_id = Country::getIdByName($request->country);
-        if (isset($request->description)) $user->description = $request->description;
-        if (isset($request->city)) $user->city = $request->city;
 
         if (isset($request->avatar)) {
             $newAvatar = $request->avatar;
@@ -194,7 +186,7 @@ class UserController extends Controller
         }
 
         $user->save();
-        $user->favoriteTags()->sync($request->favoriteTags);
+        $user->favoriteTopics()->sync($request->favoriteTopics);
 
         return redirect("/user/${id}");
     }
@@ -212,7 +204,6 @@ class UserController extends Controller
                 'id' => $user->id,
                 'username' => $user->username,
                 'avatar' => $user->avatar,
-                'description' => $user->description,
                 'is_admin' => $user->is_admin,
                 'reputation' => $user->reputation,
                 'is_suspended' => $user->is_suspended,

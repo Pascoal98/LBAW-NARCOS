@@ -60,9 +60,6 @@ $guest = !Auth::check();
                 <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center mt-2 mt-lg-0">
                 </div>
             </div>
-            <div class="mt-5" id="description">
-                <h5>{{ $user['description'] }}</h5>
-            </div>
         </div>
     </section>
 @endsection
