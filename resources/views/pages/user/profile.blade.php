@@ -14,22 +14,13 @@ $guest = !Auth::check();
         <div class="container-fluid py-3">
             <div class="row w-100 mt-4 mt-lg-5" id="userGraphics">
                 <div class="col-5 col-lg-6 d-flex justify-content-center align-items-center h-100">
-                    <img src="{{ isset($user['avatar']) ? asset('storage/avatars/' . $user['avatar']) : $userImgPHolder }}"
-                        id="avatarImg" onerror="this.src='{{ $userImgPHolder }}'" alt="User Avatar" />
-
                 </div>
                 <div class="col-7 col-lg-6 d-flex flex-column align-items-center h-100">
-                    <div id="areasOfExpertiseContainer" class="h-100">
-                        @include('partials.user.areasOfExpertiseGraph', ['topAreasExpertise' => $topAreasExpertise ])
-                    </div>
                 </div>
             </div>
             <div class="row w-100 my-4 mt-lg-5">
                 <div class="col-5 col-lg-6 d-flex justify-content-center align-items-center position-relative">
-                    <h2 class="text-center my-0 py-0">{{ $user['name'] }}</h2>
-                    @if ($user['isAdmin'])
-                        <span id="adminBadge" class="badge rounded-pill ms-3 bg-custom">Admin</span>
-                    @endif
+                    <h2 class="text-center my-0 py-0">{{ $user['username'] }}</h2>
                 </div>
                 <div class="col-7 col-lg-6 d-flex justify-content-center align-items-center">
                     @if ($isOwner)
@@ -63,18 +54,10 @@ $guest = !Auth::check();
                 <div class="col-12 col-lg-6 d-flex flex-column align-items-center">
                     <div class="d-flex align-items-center my-3">
                         <i class="fa fa-birthday-cake me-3 fa-1x" onclick="console.log('cliked')"></i>
-                        <h5 class="mb-0">{{ $birthDate . ' (' . $age . ')' }}</h5>
-                    </div>
-                    <div class="d-flex align-items-center mb-3">
-                        &#{{ $user['country']['flag'][0] }}&#{{ $user['country']['flag'][1] }}
-                        <h5 class="mb-0 ms-3">
-                            {{ (is_null($user['city']) ? '' : $user['city'] . ', ') . $user['country']['name'] }}</h5>
+                        <h5 class="mb-0">{{ $date_of_birth . ' (' . $age . ')' }}</h5>
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center mt-2 mt-lg-0">
-                    <div id="profileRepContainer">
-                        @include('partials.user.reputationBar', ['user' => $user, 'isOwner' => $isOwner])
-                    </div>
                 </div>
             </div>
             <div class="mt-5" id="description">
@@ -97,7 +80,7 @@ $guest = !Auth::check();
                     <h3 class="my-3 text-white">User didn't post any Article</h3>
                 </div>
             @endif
-            @include('partials.content.articles', ['articles' => $articles])
+            @include('partials.post.articles', ['articles' => $articles])
         </div>
     </section>
 @endsection
@@ -114,18 +97,10 @@ $guest = !Auth::check();
 
 {{-- ------------------------------------------------------------------------------------ --}}
 
-@section('report')
-    @include('partials.user.reportPopup', ['id' => $user['id']])
-@endsection
-
-{{-- ------------------------------------------------------------------------------------ --}}
-
 @section('content')
     <div id="userProfileContainer" class="d-flex flex-column">
         @yield('userInfo')
         @yield('articles')
-        @yield('report')
-
         @if ($canLoadMore)
             @yield('load-more')
         @endif
