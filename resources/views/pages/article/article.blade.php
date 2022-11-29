@@ -57,8 +57,8 @@
 
                 <p class="flex-row mt-3 mb-1">
 
-                    @foreach ($tags as $tag)
-                        @include('partials.tag', ['tag' => $tag ])
+                    @foreach ($topics as $topic)
+                        @include('partials.topic', ['topic' => $topic ])
                     @endforeach
 
                     @if ( $isAuthor )
@@ -122,13 +122,6 @@
                     <p class="text-danger my-4">{{ $errors->first('user') }}</p>
                 @endif
 
-                @if (isset($article['thumbnail']))
-                    <div class="h-50 mb-5 text-center">
-                        <img src="{{ asset('storage/thumbnails/' . $article['thumbnail']) }}"
-                            onerror="this.src='{{ $articleImgPHolder }}'" id="articleImg"
-                            alt="Article Thumbnail">
-                    </div>
-                @endif
 
                 <div id="articleBody" class="flex-row h-75">
                     {!! $article['body'] !!}
