@@ -331,9 +331,11 @@ paths:
 
       responses:
         "200":
-          description: "Show list of followed users."
+          description: "Show list of followed users"
         "401":
-          description: "Unauthorized. Not authenticated."
+          description: "Unauthorized. Must be authenticated"
+        "403":
+          description: "Forbidden. Must be owner of the profile"
         "404":
           description: "User not found"
 
