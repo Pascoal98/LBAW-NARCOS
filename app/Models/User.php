@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasFactory;
+    use  HasFactory;
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
@@ -57,19 +56,14 @@ class User extends Authenticatable
     }
 
 
-    public function content()
+    public function post()
     {
-        return $this->hasMany(Content::class, 'author_id');
+        return $this->hasMany(Post::class, 'author_id');
     }
 
     public function feedback()
     {
         return $this->hasMany(Feedback::class);
-    }
-
-    public function notifications()
-    {
-        return $this->hasMany(Notification::class, 'receiver_id');
     }
 
 

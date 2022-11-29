@@ -212,7 +212,7 @@ class UserController extends Controller
         });
 
         return view('pages.user.followedUsers', [
-            'users' => $followedUsers,
+            'user' => $followedUsers,
         ]);
     }
 

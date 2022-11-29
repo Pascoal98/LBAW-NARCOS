@@ -8,6 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Authentication info -->
+    <meta name="user-id" content="{{ Auth::id() }}" >
+    
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
@@ -22,16 +25,7 @@
   </head>
   <body>
     <main>
-      <header>
-        <h1><a href="{{ url('/') }}">NARCOS</a></h1>
-        @if (Auth::check())
-        <a href="{{url('/user/'. Auth::id()) }}"> My Profile </a>
-        <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
-        @else
-        <a class="button" href="{{ url('/login') }}"> Login </a>
-        <a class="button" href="{{ url('/register') }}"> Register </a>
-        @endif
-      </header>
+      @include('partials.navbar')
       <section id="content">
         @yield('content')
       </section>

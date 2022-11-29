@@ -11,17 +11,30 @@ class UserPolice {
     use HandlesAuthorization;
 
 
-    /**
-     * Checks if the user can update the profile
-     */
+
     public function update(User $user, User $model) {
         return $user->id === $model->id;
     }
 
-    /**
-     * Checks if the user can delete the account
-     */
+
     public function delete(User $user, User $model) {
         return $user->id === $model->id;
+    }
+
+    public function followed(User $user, User $model)
+    {
+        return $user->id === $model->id;
+    }
+
+    
+    public function follow(User $user, User $model)
+    {
+        return Auth::check();
+    }
+
+
+    public function unfollow(User $user, User $model)
+    {
+        return Auth::check();
     }
 }
