@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function proposedTopics()
     {
-        return $this->hasMany(Tag::class, 'user_id');
+        return $this->hasMany(Topic::class, 'user_id');
     }
 
 

@@ -24,6 +24,6 @@ class Feedback extends Model
     }
 
     public function post() {
-      return $this->belongsTo(Content::class);
+      return $this->belongsTo(Post::class);
     }
 }

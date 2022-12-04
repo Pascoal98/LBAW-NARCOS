@@ -24,11 +24,6 @@ class Topic extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function areasExpertise()
-    {
-        return $this->belongsToMany(User::class, 'area_of_expertise')->withPivot('reputation');
-    }
-
     public function favoriteUsers()
     {
         return $this->belongsToMany(User::class, 'favorite_topic');
@@ -39,9 +34,9 @@ class Topic extends Model
         return $this->belongsToMany(Article::class, 'article_topic', 'topic_id', 'article_id');
     }
 
-    public static function listTagsByState($topic_state)
+    public static function listTopicsByState($topic_state)
     {
-        return Tag::where('state', $topic_state)
+        return Topic::where('state', $topic_state)
             ->orderBy('name', 'asc')->get();
     }
 
