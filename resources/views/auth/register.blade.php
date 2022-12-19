@@ -38,10 +38,6 @@
           {{ $errors->first('date_of_birth') }}
       </span>
     @endif
-
-    <label for="avatar">Avatar</label>
-    <input id="avatar" type="file" name="avatar" >
-    
     <button type="submit">
       Register
     </button>

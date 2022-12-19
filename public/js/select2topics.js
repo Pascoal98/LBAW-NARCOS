@@ -1,4 +1,4 @@
-$('#tags').select2({
+$('#topics').select2({
     multiple: true,
     maximumSelectionLength: 3,
     tokenSeparators: [',', ' ', ";"],
@@ -6,7 +6,7 @@ $('#tags').select2({
     closeOnSelect: false,
 });
 
-$('#filterTags').select2({
+$('#filterTopics').select2({
     multiple: true,
     width: '25%',
     tokenSeparators: [',', ' ', ";"],
@@ -15,16 +15,7 @@ $('#filterTags').select2({
     closeOnSelect: false,
 });
 
-$('#filterMobileTags').select2({
-    multiple: true,
-    maximumSelectionLength: 3,
-    tokenSeparators: [',', ' ', ";"],
-    theme: "bootstrap-5",
-    placeholder: "Tags",
-    closeOnSelect: false,
-});
-
-$('#favoriteTags').select2({
+$('#favoriteTopics').select2({
     multiple: true,
     tokenSeparators: [',', ' ', ";"],
     theme: "bootstrap-5",

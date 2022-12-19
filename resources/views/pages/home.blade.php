@@ -12,3 +12,23 @@
 @endsection
 
 {{-- ------------------------------------------------------------------------------------ --}}
+
+@section('articles')
+    <section id="articles" class="container-fluid">
+
+        @if ($articles->isEmpty())
+            <div class="alert alert-custom mb-4 text-center" role="alert">
+                <h3 class="my-3">No results found</h3>
+            </div>  
+        @endif
+
+        @include('partials.post.articles', ['articles' => $articles])
+    </section>
+@endsection
+
+{{-- ------------------------------------------------------------------------------------ --}}
+
+@section('content')
+    @yield('articles')
+
+@endsection

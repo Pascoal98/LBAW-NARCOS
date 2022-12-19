@@ -13,7 +13,7 @@
             <span class="card-text"> 
                 <i class="far fa-clock pe-2"> 
                     @php
-                        $time = date('F j, Y', /*, g:i a',*/ strtotime( $article['published_date'] ) )
+                        $time = date('F j, Y', /*, g:i a',*/ strtotime( $article['published_at'] ) )
                     @endphp
                     {{ $time }}
                 </i>

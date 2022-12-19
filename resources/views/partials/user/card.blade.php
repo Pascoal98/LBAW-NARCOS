@@ -1,4 +1,14 @@
 <div class="card user-card d-flex flex-row flex-wrap mb-3 bg-secondary">
+    <div class="user-card-avatar card-block px-4 py-4 text-center">
+            <a href="/user/{{ $user['id'] }}">
+            <img src="{{
+                    isset($user['avatar']) ?
+                    asset('storage/avatars/'.$user['avatar']) : $userImgPHolder
+                }}"
+                onerror="this.src='{{ $userImgPHolder }}'"
+                style="border-radius: 50%;"
+            /> </a>
+    </div>
     <div class="card-block user-card-body d-flex flex-column justify-content-center px-4 py-4">
         <h4 class="card-title mb-0">
             <a href="/user/{{ $user['id'] }}" class="purpleLink" >{{ $user['name'] }}</a>

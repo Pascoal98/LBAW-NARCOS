@@ -32,13 +32,12 @@ class ArticleController extends Controller
             'email' => $user->email,
             'date_of_birth' => $user->date_of_birth,
             'is_admin' => $user->is_admin,
-            'description' => $user->description,
             'avatar' => $user->avatar,
             'is_suspended' => $user->is_suspended,
             'reputation' => $user->reputation,
         ];
 
-        $topics = Topic::listTopicsByState('ACCEPTED')
+        $topics = Topic::listTopicsByStatus('ACCEPTED')
             ->map(fn ($topic) => $toptopicsic->only('id', 'username'));
 
         return view('pages.article.create_article', [
@@ -142,7 +141,6 @@ class ArticleController extends Controller
                 'email' => $author->email,
                 'date_of_birth' => $author->date_of_birth,
                 'is_admin' => $author->is_admin,
-                'description' => $author->description,
                 'avatar' => $author->avatar,
                 'is_suspended' => $author->is_suspended,
                 'reputation' => $author->reputation,
@@ -254,7 +252,6 @@ class ArticleController extends Controller
             'email' => $user->email,
             'date_of_birth' => $user->date_of_birth,
             'is_admin' => $user->is_admin,
-            'description' => $user->description,
             'avatar' => $user->avatar,
             'is_suspended' => $user->is_suspended,
             'reputation' => $user->reputation,

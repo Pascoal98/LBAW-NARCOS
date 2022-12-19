@@ -34,10 +34,10 @@ class Topic extends Model
         return $this->belongsToMany(Article::class, 'article_topic', 'topic_id', 'article_id');
     }
 
-    public static function listTopicsByState($topic_state)
+    public static function listTopicsByStatus($topic_status)
     {
-        return Topic::where('state', $topic_state)
-            ->orderBy('name', 'asc')->get();
+        return Topic::where('status', $topic_status)
+            ->orderBy('subject', 'asc')->get();
     }
 
     public function isFavorite($user_id)
