@@ -6,7 +6,7 @@
         <div class="d-flex flex-row pt-3 h-75">
             <div class="w-75 pb-0" id="authorHeader">
                 <a href="{{ route('userProfile', ['id' => $author['id']]) }}">
-                    <h4 class="m-3">{{ $author['name'] }}</h4>
+                    <h4 class="m-3">{{ $author['username'] }}</h4>
                 </a>
             </div>                        
         </div>
