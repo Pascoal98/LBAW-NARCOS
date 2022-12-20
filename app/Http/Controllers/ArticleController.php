@@ -126,7 +126,7 @@ class ArticleController extends Controller
             'title' => $article->title,
             'thumbnail' => $article->thumbnail,
             'body' => $article->body,
-            'published_at' => $article->published_at,
+            'published_at' => $article->published_date,
             'likes' => $article->likes,
             'dislikes' => $article->dislikes,
             'is_edited' => $article->is_edited
