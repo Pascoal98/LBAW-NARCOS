@@ -675,6 +675,502 @@ paths:
                   description: "Failed article edition. Redirect to the edit article page."
                   value: "/article/{id}/edit"
 
+# M04 : Comments
+  /comment:
+    post:
+      operationId: R401
+      summary: "R401 : Create comment action"
+      description: "Processes the new comment creation form. Access: USR"
+      tags:
+        - "M04: Comments"
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                article_id:
+                  type: integer
+                parent_comment_id:
+                  type: integer
+              required:
+                - body
+                - article_id
+
+      responses:
+        "200":
+          description: "Successful comment creation. Return created comment"
+        "400":
+          description: "Failed to create comment. Bad request"
+        "401":
+          description: "Unauthorized. Must be authenticated."
+        "404":
+          description: "[Article | Parent Comment] id not found."
+
+  /comment/{id}:
+    put:
+      operationId: R402
+      summary: "R402 : Edit comment action"
+      description: "Processes a comment edition. Access: OWN"
+      tags:
+        - "M04: Comments"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+
+      responses:
+        "200":
+          description: "Successful comment update. Return updated comment"
+        "400":
+          description: "Failed to update comment. Bad request"
+        "401":
+          description: "Unauthorized. Must be authenticated."
+        "403":
+          description: "Forbidden. Must be the owner of the comment."
+        "404":
+          description: "Comment id not found."
+
+    delete:
+      operationId: R403
+      summary: "R403 : Delete comment action"
+      description: "Processes a request to delete a comment. Access: OWN, ADM"
+      tags:
+        - "M04: Comments"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Successful comment deletion. Return deleted comment"
+        "401":
+          description: "Unauthorized. Must be authenticated."
+        "403":
+          description: "Forbidden. Must be the owner of the comment."
+        "404":
+          description: "Comment id not found."
+
+  /article/{id}/comments:
+    get:
+      operationId: R404
+      summary: "R404 : Comments of a given article"
+      description: "Returns comments of a given article according to user parameters. Access: PUB"
+      tags:
+        - "M04: Comments"
+      parameters:
+        - in: path
+          name: id
+          description: "article id"
+          schema:
+            type: integer
+          required: true
+        - in: query
+          name: offset
+          description: "value used to fetch results starting at a certain value"
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          required: false
+        - in: query
+          name: limit
+          description: "value used to limit the number of results"
+          schema:
+            type: integer
+            minimum: 1
+          required: false # returns all articles if not specified
+
+      responses:
+        "200":
+          description: "OK. Return a list of comments that fit the criteria"
+        "404":
+          description: "Article id not found."
+
+# M05: Topics
+
+  /topics/{topic_id}/accept:
+    put:
+      operationId: "R501"
+      summary: "R501: Accept a Topic"
+      description: "Change the state of a topic to accepted. Access: ADM"
+      tags:
+        - "M05: Topics"
+
+      parameters:
+        - in: path
+          name: topic_id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Topic is now accepted"
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
+  /topics/{topic_id}/reject:
+    put:
+      operationId: "R502"
+      summary: "R502: Reject a Topic"
+      description: "Change the state of a topic to rejected. Access: ADM"
+      tags:
+        - "M05: Topics"
+
+      parameters:
+        - in: path
+          name: topic_id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Topic was rejected successfully"
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
+  /favorite_topics:
+    get:
+      operationId: R503
+      summary: "R503: View User Favourite Topics"
+      description: "Show user favourite topics. Access: USR"
+      tags:
+        - "M05: Topics"
+
+      responses:
+        "200":
+          description: "Ok. Show favourite topics"
+        "302":
+          description: "Redirect if user is not logged in."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Failure:
+                  description: "User is not logged in. Redirect to login form."
+                  value: "/login"
+
+  /topics/{topic_id}/add_favorite:
+    put:
+      operationId: R504
+      summary: "R504: Add a Topic to Favourites"
+      description: "Processes the addition of favourite topic. Access: USR"
+      tags:
+        - "M05: Topics"
+
+      parameters:
+        - in: path
+          name: topic_id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Topic is now in favourites"
+        "401":
+          description: "Unauthorized. Not logged in"
+        "404":
+          description: "Not found"
+
+  /topics/{topic_id}/remove_favorite:
+    put:
+      operationId: R505
+      summary: "R505: Remove a Topic from Favourites"
+      description: "Processes the removal of favourite topic. Access: USR"
+      tags:
+        - "M05: Topics"
+
+      parameters:
+        - in: path
+          name: topic_id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Topic is now removed from favourites"
+        "401":
+          description: "Unauthorized. Not logged in"
+        "404":
+          description: "Not found"
+        "409":
+          description: "Conflict. Topic is not a favourite"
+
+  /api/topics/{tag_state}:
+    get:
+      operationId: R506
+      summary: "R506: Filter Topics"
+      description: "Show list of topics by state. Access: ADM"
+      tags:
+        - "M05: Topics"
+
+      parameters:
+        - in: query
+          name: state
+          description: (ACCEPTED, REJECTED, PENDING)
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: "Ok. Show topic list"
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
+  /topics/{topic_id}:
+    delete:
+      operationId: R507
+      summary: "R507: Delete topic"
+      description: "Processes the delete topic request. Access: ADM"
+      tags:
+        - "M05: Topics"
+
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Topic was deleted successfully"
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
+  /topics/new:
+    post:
+      operationId: R508'
+      summary: "R508: Propose New Topic"
+      description: "Processes the new topic form submission. Access: USR"
+      tags:
+        - "M05: Topics"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                tag_name:
+                  type: string
+              required:
+                - tag_name
+      responses:
+        "200":
+          description: "Ok. Topic was successfully proposed"
+        "400":
+          description: "Bad Request. Failed to propose a new topic"
+        "401":
+          description: "Unauthorized. Not logged in"
+
+# M07: User Administration
+
+  /admin:
+    get:
+      operationId: "R701"
+      summary: "R701: Administration Panel"
+      description: "Administration Central Page. Access: ADM"
+      tags:
+        - "M07: User Administration"
+
+      responses:
+        "200":
+          description: "Ok. Access to administration central page"
+        "400":
+          description: "Bad request."
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
+  /admin/suspensions:
+    get:
+      operationId: "R702"
+      summary: "R702: View suspended users and suspension history"
+      description: "Page with information about suspensions. Access: ADM"
+      tags:
+        - "M07: User Administration"
+
+      responses:
+        "200":
+          description: "Ok. Show suspended users"
+        "400":
+          description: "Bad request."
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
+  /user/{user_id}/suspend:
+    post:
+      operationId: "R703"
+      summary: "R703: Suspend User"
+      description: "Processes a suspension made on a user. Access: ADM"
+      tags:
+        - "M07: User Administration"
+
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                end_time:
+                  type: string
+                  format: date
+              required:
+                - reason
+                - end_time
+
+      responses:
+        "200":
+          description: "Successfully add suspension to user"
+        "400":
+          description: "Bad request."
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
+  /user/{user_id}/unsuspend:
+    put:
+      operationId: "R704"
+      summary: "R704: Unsuspend User"
+      description: "Processes the unsuspension of an user. Access: ADM"
+      tags:
+        - "M07: User Administration"
+
+      parameters:
+        - in: path
+          name: user_id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Successfully removed suspension from a user"
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
+  /admin/reports:
+    get:
+      operationId: "R705"
+      summary: "R705: View all the reports"
+      description: "Page with information about all the reports. Access: ADM"
+      tags:
+        - "M07: User Administration"
+
+      responses:
+        "200":
+          description: "Ok. Show all the reports (UI06)"
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
+  /admin/reports/{report_id}/close:
+    put:
+      operationId: "R706"
+      summary: "R706: Close a report"
+      description: "Processes a report and closes it"
+      tags:
+        - "M07: User Administration"
+
+      parameters:
+        - in: path
+          name: report_id
+          schema:
+            type: integer
+          required: true
+
+      responses:
+        "200":
+          description: "Ok. Report closed successfully."
+
+  /admin/topics:
+    get:
+      operationId: "R707"
+      summary: "R707: Manage Topics"
+      description: "Page to manage the topics of the system. Access: ADM"
+      tags:
+        - "M07: User Administration"
+
+      responses:
+        "200":
+          description: "Ok. Provide Manage Topics page (UI09)"
+        "401":
+          description: "Unauthorized. Not logged in"
+        "403":
+          description: "Forbidden. No permissions"
+        "404":
+          description: "Not found"
+
 
   # M08 : Static Pages
 
