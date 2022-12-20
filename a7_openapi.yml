@@ -1126,7 +1126,7 @@ paths:
 
       responses:
         "200":
-          description: "Ok. Show all the reports (UI06)"
+          description: "Ok. Show all the reports"
         "401":
           description: "Unauthorized. Not logged in"
         "403":
@@ -1163,7 +1163,7 @@ paths:
 
       responses:
         "200":
-          description: "Ok. Provide Manage Topics page (UI09)"
+          description: "Ok. Provide Manage Topics page"
         "401":
           description: "Unauthorized. Not logged in"
         "403":
