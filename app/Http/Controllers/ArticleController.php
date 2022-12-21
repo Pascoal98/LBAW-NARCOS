@@ -27,7 +27,7 @@ class ArticleController extends Controller
             return redirect('/login');
 
         $authorInfo = [
-            'id' => $id,
+            'id' => $user->id,
             'username' => $user->username,
             'email' => $user->email,
             'date_of_birth' => $user->date_of_birth,
@@ -126,7 +126,7 @@ class ArticleController extends Controller
             'title' => $article->title,
             'thumbnail' => $article->thumbnail,
             'body' => $article->body,
-            'published_at' => $article->published_date,
+            'published_date' => $article->published_date,
             'likes' => $article->likes,
             'dislikes' => $article->dislikes,
             'is_edited' => $article->is_edited
@@ -136,7 +136,7 @@ class ArticleController extends Controller
 
         if (isset($author))
             $authorInfo = [
-                'id' => $id,
+                'id' => $author->id,
                 'username' => $author->username,
                 'email' => $author->email,
                 'date_of_birth' => $author->date_of_birth,

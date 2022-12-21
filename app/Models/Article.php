@@ -33,8 +33,8 @@ class Article extends Post
       return $this->hasMany(Comment::class, 'article_id');
     }
 
-    public function content() {
-      return $this->belongsTo(Content::class);
+    public function post() {
+      return $this->belongsTo(Post::class);
     }
 
     public function articleTopics() {

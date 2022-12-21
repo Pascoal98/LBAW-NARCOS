@@ -547,10 +547,10 @@ VALUEs
 
 INSERT INTO article (post_id, title, thumbnail) 
 VALUES
-    (1, 'Boasted a strong tongue (containing similar touch receptors to', 'https://imgur.com/gJglZK.jpg'),
-    (2, 'Threaten Egypts main systems of considerable Amerindian ancestry form the Downtown Loop, runs 2.7 miles', 'https://imgur.com/uvIeAn.jpg'),
-    (3, 'One "fair" secure Virtual', 'https://imgur.com/HJaWqL.jpg'),
-    (4, 'Prediction must tasks, but on', 'https://imgur.com/djlhDb.jpg');
+    (1, 'Boasted a strong tongue (containing similar touch receptors to', null),
+    (2, 'Threaten Egypts main systems of considerable Amerindian ancestry form the Downtown Loop, runs 2.7 miles', null),
+    (3, 'One "fair" secure Virtual', null),
+    (4, 'Prediction must tasks, but on', null);
 
 INSERT INTO feedback (user_id, post_id, is_like)
 VALUES

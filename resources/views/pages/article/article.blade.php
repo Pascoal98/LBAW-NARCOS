@@ -2,8 +2,8 @@
 
 @section('scripts')
     <script type="text/javascript" src="{{ asset('js/comments.js') }}"> </script>
-    <script type="text/javascript" src="{{ asset('js/post.js') }}"></script>
-    <script type="text/javascript" src={{ asset('js/user.js') }}></script>
+    <script type="text/javascript" src="{{ asset('js/content.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/user.js') }}"></script>
 @endsection
 
 @section('title', "- Article")
@@ -12,7 +12,7 @@
 @section('article')
     <div class="article-container h-100 container-fluid bg-dark rounded mt-3 mb-5">
 
-        <div id="articlepostContainer" class="d-flex flex-row my-2 h-100 position-relative">
+        <div id="articleContentContainer" class="d-flex flex-row my-2 h-100 position-relative">
             
             <div class="articleInfoContainer d-flex flex-column p-3 mb-0 text-white" >
 
@@ -20,11 +20,11 @@
                     {{ $article['title'] }}
                 </div>
 
-                <div class="d-flex justify-post-between align-items-center flex-row">
+                <div class="d-flex justify-content-between align-items-center flex-row">
                     @php
-                        $article_published_at = date('F j, Y', /*, g:i a',*/ strtotime($article['published_at']));
+                        $article_published_date = date('F j, Y', /*, g:i a',*/ strtotime($article['published_date']));
                     @endphp
-                    <i id="publishedAt">{{ $article_published_at }}</i>
+                    <i id="publishedAt">{{ $article_published_date }}</i>
 
                     @if ($isAuthor || $isAdmin)
                         <div id="articleButtons" class="d-flex align-items-center">
@@ -42,9 +42,9 @@
                                     @method('DELETE')
                                 </form>
                                 <button
-                                    id="delete_post_{{$article['id']}}"
+                                    id="delete_content_{{$article['id']}}"
                                     type="button"
-                                    onclick="confirmAction('#delete_post_{{$article['id']}}', () => document.deleteArticleForm.submit())"
+                                    onclick="confirmAction('#delete_content_{{$article['id']}}', () => document.deleteArticleForm.submit())"
                                     class="btn btn-transparent my-0"
                                 >
                                     <i class="fas fa-trash fa-2x article-button text-danger mt-2"
@@ -102,11 +102,6 @@
                         @endif
                     @endif
 
-                    <button onclick="showSocials()" class="btn ms-4 mt-3"
-                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Share Article">
-                        <i class="fas fa-share-alt fa-2x"></i>
-                    </button>
-
                     @if ($article['is_edited'])
                         <b><i class="ms-4 text-lightPurple">Edited</i></b>
                     @endif
@@ -115,8 +110,8 @@
                 @if ($errors->has('article'))
                     <p class="text-danger my-4">{{ $errors->first('article') }}</p>
                 @endif
-                @if ($errors->has('post'))
-                    <p class="text-danger my-4">{{ $errors->first('post') }}</p>
+                @if ($errors->has('content'))
+                    <p class="text-danger my-4">{{ $errors->first('content') }}</p>
                 @endif
                 @if ($errors->has('user'))
                     <p class="text-danger my-4">{{ $errors->first('user') }}</p>
@@ -129,12 +124,6 @@
 
             </div>
 
-            <div class="d-none d-lg-block author-container me-4 mt-4 p-3 text-black rounded">
-                @include('partials.authorInfo', [
-                    'author' => $author,
-                    'isOwner' => $isAuthor
-                ])
-            </div>
         </div>
 
         <div class="d-block d-lg-none author-container m-auto rounded position-relative">
@@ -155,6 +144,9 @@
             <div class="h-50">
                 @if (Auth::check())
                     <div class="d-flex flex-row my-3" id="articleCommentsContainer">
+                        <div class="flex-column h-100 commentHeader mx-3 mx-lg-5">
+                            
+                        </div>
                         <div id="comment_form" class="flex-column w-100 m-0">
                             <textarea id="commentTextArea" class="flex-column border-light m-0 p-2" placeholder="Type here"></textarea>
                             <button id="newCommentButton"
@@ -183,8 +175,6 @@
     </div>
 @endsection
 
-
-
-@section('post')
+@section('content')
     @yield('article')
 @endsection

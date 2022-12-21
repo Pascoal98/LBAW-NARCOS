@@ -95,13 +95,13 @@ class HomeController extends Controller
 
         if (isset($request->minDate))
             $articles = $articles->filter(function ($article) use ($minTimestamp) {
-                $timestamp = strtotime($article->published_at);
+                $timestamp = strtotime($article->published_date);
                 return $timestamp >= $minTimestamp;
             });
 
         if (isset($request->maxDate))
             $articles = $articles->filter(function ($article) use ($maxTimestamp) {
-                $timestamp = strtotime($article->published_at);
+                $timestamp = strtotime($article->published_date);
                 return $timestamp <= $maxTimestamp;
             });
 
@@ -147,14 +147,14 @@ class HomeController extends Controller
         }
 
         else if ($type === 'recent')
-            $sortedArticles = $articles->sortByDesc('published_at');
+            $sortedArticles = $articles->sortByDesc('published_date');
 
         else $sortedArticles = $articles;
 
         $sortedArticles = $sortedArticles->skip($offset);
         $canLoadMore = is_null($limit) ? false : $sortedArticles->count() > $limit;
         $results = $sortedArticles->take($limit)->map(fn ($article) => $article
-            ->only('id', 'title', 'thumbnail', 'body', 'published_at', 'likes', 'dislikes'));
+            ->only('id', 'title', 'thumbnail', 'body', 'published_date', 'likes', 'dislikes'));
 
         return [
             'articles' => $results,
@@ -164,8 +164,8 @@ class HomeController extends Controller
 
     private function compareArticleDates($a, $b)
     {
-        $d1 = date_create($a->published_at);
-        $d2 = date_create($b->published_at);
+        $d1 = date_create($a->published_date);
+        $d2 = date_create($b->published_date);
 
         $daysDiff = date_diff($d1, $d2)->format("%a");
         if ($daysDiff === "0") return 0;

@@ -18,8 +18,8 @@
                     {{ $time }}
                 </i>
 
-                <i class="fa fa-thumbs-up ms-3 me-2"> {{ $article['likes'] }}</i>
-                <i class="fa fa-thumbs-down"> {{ $article['dislikes'] }}</i>
+                <i class="fa fa-thumbs-up ms-3 me-2"> Likes: {{ $article['likes'] }}</i>
+                <i class="fa fa-thumbs-down"> Dislikes: {{ $article['dislikes'] }}</i>
             </span>
 
             <p class="card-text text-light-white text-wrap overflow-hidden h-100">
