@@ -171,7 +171,7 @@ class UserController extends Controller
         if (isset($request->username)) $user->username = $request->username;
         if (isset($request->email)) $user->email = $request->email;
         if (isset($request->new_password)) $user->password = bcrypt($request->new_password);
-        if (isset($request->date_of_birth)) $user->birth_date = $request->date_of_birth;
+        if (isset($request->date_of_birth)) $user->date_of_birth = $request->date_of_birth;
 
         if (isset($request->avatar)) {
             $newAvatar = $request->avatar;
@@ -186,7 +186,6 @@ class UserController extends Controller
         }
 
         $user->save();
-        $user->favoriteTopics()->sync($request->favoriteTopics);
 
         return redirect("/user/${id}");
     }
