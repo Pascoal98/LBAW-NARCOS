@@ -12,8 +12,8 @@ $isOpen = $errors->has('password');
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-    <script type="text/javascript" src={{ asset('js/daterangepicker.js') }}></script>
-    <script type="text/javascript" src={{ asset('js/user.js') }}></script>
+    <script type="text/javascript" src="{{ asset('js/daterangepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/user.js') }}"></script>
     <script type="text/javascript" src=" {{ asset('js/select2tags.js') }}"> </script>
 @endsection
 
@@ -27,7 +27,7 @@ $isOpen = $errors->has('password');
             <div class="row w-100 " id="editAvatarContainer">
                 <label class="h2 py-0 my-0">Avatar</label>
                 <div id="avatarPreviewContainer" class="d-flex align-items-center">
-                    <img src={{ isset($user['avatar']) ? asset('storage/avatars/' . $user['avatar']) : $userImgPHolder }}
+                    <img src="{{ isset($user['avatar']) ? asset('storage/avatars/' . $user['avatar']) : $userImgPHolder }}"
                         id="avatarPreview" onerror="this.src='{{ $userImgPHolder }}'" alt="Avatar Preview"/>
                     <input type="file" accept="image/*" id="imgInput" name='avatar' />
                     @if ($errors->has('avatar'))
