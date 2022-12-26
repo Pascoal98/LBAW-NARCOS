@@ -71,7 +71,7 @@
 
                     @else
                         @if ( $liked )
-                            <i class="fas fa-thumbs-up ps-5 purpleLink feedbackIcon" 
+                            <i class="fas fa-thumbs-up ps-4 purpleLink feedbackIcon" 
                                 id="articleLikes"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Like"
                                 onclick="removeFeedback(this, {{ $article['id'] }}, true, false)"

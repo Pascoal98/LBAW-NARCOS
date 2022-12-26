@@ -22,7 +22,7 @@ Route::post('register', 'Auth\RegisterController@register');
 
 // User
 Route::get('user/{id}', 'UserController@show')->name('userProfile')->where(['id' => '[0-9]+']);
-Route::get('user/{id}/edit', 'UserController@edit')->name('editProfile')->where(['id' => '[0-9]+']);
+Route::get('user/{id}/edit', 'UserController@edit')->name('editUser')->where(['id' => '[0-9]+']);
 Route::put('user/{id}', 'UserController@update')->name('editProfile')->where(['id' => '[0-9]+']);
 Route::delete('user/{id}', 'UserController@delete')->name('deleteUser')->where(['id' => '[0-9]+']);
 Route::post('user/{id}/report', 'UserController@report')->where(['id' => '[0-9]+']);

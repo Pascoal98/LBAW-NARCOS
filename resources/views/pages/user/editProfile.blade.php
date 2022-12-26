@@ -7,11 +7,6 @@ $isOpen = $errors->has('password');
 @section('title', "- Edit Profile")
 
 @section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
     <script type="text/javascript" src="{{ asset('js/daterangepicker.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/user.js') }}"></script>
     <script type="text/javascript" src=" {{ asset('js/select2topics.js') }}"> </script>
@@ -45,7 +40,7 @@ $isOpen = $errors->has('password');
                         </div>
                         <div class="col-6">
                             <label class="h2 pb-3 my-0" for="date_of_birth_Input">Birth Date</label>
-                            <input name="date_of_birth" class="h3 editInputs py-4 px-2 px-lg-3" type="text" placeholder="Enter Date of Birth" required
+                            <input name="birthDatePicker" class="h3 editInputs py-4 px-2 px-lg-3" type="text" placeholder="Enter Date of Birth" required
                                 value="{{ old('date_of_birth') ? old('date_of_birth') : $date_of_birth }}">
                             <input name="date_of_birth" type="hidden" value="{{ old('date_of_birth') }}" id="date_of_birth_Input">
                             @if ($errors->has('date_of_birth'))
