@@ -3,7 +3,7 @@
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script type="text/javascript" src={{ asset('js/user.js') }}></script>
+    <script type="text/javascript" src="{{ asset('js/user.js') }}"></script>
     <script type="text/javascript" src=" {{ asset('js/select2topics.js') }}"> </script>
 @endsection
 
@@ -35,16 +35,16 @@
                     </div>
 
                     <div class="flex-row mt-3 mb-5 pe-3"> 
-                        <label for="topics">{{ "Article topics" }}</label>
+                        <label for="topics">{{ "Article Topics" }}</label>
 
                         <select required id="topics" name="topics[]" multiple>
-                            @foreach($topics as $tag)
-                                <option value="{{$tag['id']}}"
-                                    @if (old('topics') && in_array($tag['id'], old('topics')))
+                            @foreach($topics as $topic)
+                                <option value="{{$topic['id']}}"
+                                    @if (old('topics') && in_array($topic['id'], old('topics')))
                                         selected
                                     @endif
                                 >
-                                    {{ $tag['name'] }}
+                                    {{ $topic['id'] }} -> {{ $topic['subject'] }}
                                 </option>
                             @endforeach
                         </select>
@@ -54,23 +54,6 @@
                                 <p class="mb-0">{{ $errors->first('topics') }}</p>
                             </div>
                         @endif
-                    </div>
-
-                    <div class="flex-row">
-                        <label for="thumbnail">Article Thumbnail</label>
-                        
-                        <div id="avatarPreviewContainer" class="d-flex flex-column align-items-center">
-                            <img class="col-8 col-md-6 mb-3" alt="Article Thumbnail Preview" src={{ $articleImgPHolder }}
-                                id="avatarPreview" onerror="this.src='{{ $articleImgPHolder }}'" />
-                            
-                            <input type="file" id="imgInput" name="thumbnail" accept="image/*">
-
-                            @if ($errors->has('thumbnail'))
-                                <div class="alert alert-danger ms-3 w-50 text-center py-1" role="alert">
-                                    <p class="">{{ $errors->first('thumbnail') }}</p>
-                                </div>
-                            @endif
-                        </div>
                     </div>
       
                     <div class="flex-row h-100">

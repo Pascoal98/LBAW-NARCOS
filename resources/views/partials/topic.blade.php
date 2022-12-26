@@ -1,3 +1,3 @@
 <span class="badge bg-primary"> 
-    {{ $topic['name'] }} 
+    {{ $topic['subject'] }} 
 </span>

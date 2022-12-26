@@ -3,14 +3,14 @@
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script type="text/javascript" src={{ asset('js/user.js') }}></script>
-    <script type="text/javascript" src=" {{ asset('js/select2topics.js') }}"> </script>
+    <script type="text/javascript" src="{{ asset('js/user.js') }}"></script>
+    <script type="text/javascript" src=" {{ asset('js/select2tags.js') }}"> </script>
 @endsection
 
 @section('title', "- Edit Article")
 
 {{-- ------------------------------------------------------ --}}
-@section('post')
+@section('content')
 
     <div class="article-container container-fluid">
 
@@ -36,19 +36,19 @@
                     </div>
 
                     <div class="flex-row mt-3 mb-5 pe-3"> 
-                        <label for="topics">Article Topics</label>
+                        <label for="topics">Article Tags</label>
 
                         <select required id="topics" name="topics[]" multiple>
-                            @foreach($topics as $tag)
+                            @foreach($topics as $topic)
                                 <option class="m-0"
                                 @if ( old('topics') ?
-                                in_array($tag['id'], old('topics'))
+                                in_array($topic['id'], old('topics'))
                                 :
-                                $articletopics->contains('name', $tag['name'])
+                                $articleTopics->contains('subject', $topic['subject'])
                                 )
                                     selected
                                 @endif
-                                value="{{$tag['id']}}">{{ $tag['name'] }}</option>
+                                value="{{$topic['id']}}">{{ $topic['subject'] }}</option>
                             @endforeach
                         </select>
 
@@ -62,21 +62,6 @@
                     <div class="flex-row">
                         <label for="thumbnail">Article Thumbnail</label>
 
-                        <div id="avatarPreviewContainer" class="d-flex flex-column align-items-center">
-                            <img class="col-8 col-md-6 mb-3" src={{ isset($article['thumbnail']) 
-                                ? asset('storage/thumbnails/' . $article['thumbnail'])
-                                : $articleImgPHolder }}
-                                alt="Article Thumbnail Preview"
-                                id="avatarPreview" onerror="this.src='{{ $articleImgPHolder }}'" />
-                            
-                            <input type="file" id="imgInput" name="thumbnail" accept="image/*">
-
-                            @if ($errors->has('thumbnail'))
-                                <div class="alert alert-danger ms-3 w-50 text-center py-1" role="alert">
-                                    <p class="">{{ $errors->first('thumbnail') }}</p>
-                                </div>
-                            @endif
-                        </div>
                     </div>
                     
                     <div class="flex-row h-100">

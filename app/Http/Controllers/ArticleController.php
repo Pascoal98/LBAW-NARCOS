@@ -38,7 +38,7 @@ class ArticleController extends Controller
         ];
 
         $topics = Topic::listTopicsByStatus('ACCEPTED')
-            ->map(fn ($topic) => $toptopicsic->only('id', 'username'));
+            ->map(fn ($topic) => $topic->only('id', 'subject'));
 
         return view('pages.article.create_article', [
             'author' => $authorInfo,
@@ -80,7 +80,7 @@ class ArticleController extends Controller
             $checkTopic = Topic::find($topic);
 
             //check if is valid topic
-            if (!$checkTopic || $checkTopic->state != 'ACCEPTED') {
+            if (!$checkTopic || $checkTopic->status != 'ACCEPTED') {
                 return redirect()->back()->withInput()->withErrors(['topics' => 'Invalid Topic: '.$topic]); 
             }
             array_push($topicsIds, $checkTopic->id);
@@ -153,8 +153,8 @@ class ArticleController extends Controller
         $canLoadMore = count($comments) > $this::COMMENTS_LIMIT;
         $comments = $comments->take($this::COMMENTS_LIMIT);
 
-        $topics = $article->articleTopics->map(fn ($topic) => $topic->only('name'))
-            ->sortBy('name');
+        $topics = $article->articleTopics->map(fn ($topic) => $topic->only('subject'))
+            ->sortBy('subject');
 
         $user = Auth::user();
         $is_admin = Auth::user() ? $user->is_admin : false;
@@ -240,21 +240,20 @@ class ArticleController extends Controller
             'body' => $article->body,
         ];
 
-        $articleTopics = $article->articleTopics
-            ->map(fn ($topic) => $topic->only('id', 'name'))->sortBy('name');
+        $articleTopics = $article->articleTopics->map(fn ($topic) => $topic->only('id', 'subject'))->sortBy('subject');
 
-        $topics = Topic::listTopicsByState('ACCEPTED')->map(fn ($topic) => $topic->only('id', 'name'));
+        $topics = Topic::listTopicsByStatus('ACCEPTED')->map(fn ($topic) => $topic->only('id', 'subject'));
 
         $author = $article->author;
         $authorInfo = [
-            'id' => $id,
-            'username' => $user->username,
-            'email' => $user->email,
-            'date_of_birth' => $user->date_of_birth,
-            'is_admin' => $user->is_admin,
-            'avatar' => $user->avatar,
-            'is_suspended' => $user->is_suspended,
-            'reputation' => $user->reputation,
+            'id' => $author->id,
+            'username' => $author->username,
+            'email' => $author->email,
+            'date_of_birth' => $author->date_of_birth,
+            'is_admin' => $author->is_admin,
+            'avatar' => $author->avatar,
+            'is_suspended' => $author->is_suspended,
+            'reputation' => $author->reputation,
         ];
 
         return view('pages.article.edit_article', [
@@ -319,7 +318,7 @@ class ArticleController extends Controller
             $checkTopic = Topic::find($topic);
 
             //check if is valid topic
-            if (!$checkTopic || $checkTopic->state != 'ACCEPTED') {
+            if (!$checkTopic || $checkTopic->status != 'ACCEPTED') {
                 return redirect()->back()->withInput()->withErrors(['topics' => 'Invalid Topic: '.$topic]); 
             }
             array_push($topicsIds, $checkTopic->id);

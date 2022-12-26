@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class TopicController extends Controller
 {
-    const topicStates = [
+    const topicStatus = [
         'accepted' => 'ACCEPTED',
         'rejected' => 'REJECTED',
         'pending' => 'PENDING'
@@ -27,21 +27,21 @@ class TopicController extends Controller
             'topic_id' => $topic_id
         ], 404);
 
-        if ($topic->state == 'ACCEPTED')
+        if ($topic->status == 'ACCEPTED')
             return Response()->json([
                 'status' => 'OK',
                 'msg' => 'Topic was already accepted',
                 'topic_id' => $topic_id,
             ], 200);
 
-        $topic->state = 'ACCEPTED';
+        $topic->status = 'ACCEPTED';
         $topic->save();   
 
         return Response()->json([
             'status' => 'OK',
             'msg' => 'Successfully accepted topic: '.$topic['subject'],
             'topic_id' => $topic_id,
-            'topic_subject' => $topic['subject'],
+            'subject' => $topic['subject'],
         ], 200);
     }
 
@@ -57,21 +57,21 @@ class TopicController extends Controller
             'topic_id' => $topic_id
         ], 404);
 
-        if ($topic->state == 'REJECTED')
+        if ($topic->status == 'REJECTED')
             return Response()->json([
                 'status' => 'OK',
                 'msg' => 'Topic was already rejected',
                 'topic_id' => $topic_id
             ], 200);
 
-        $topic->state = 'REJECTED';
+        $topic->status = 'REJECTED';
         $topic->save();
 
         return Response()->json([
             'status' => 'OK',
             'msg' => 'Successfully rejected topic: '.$topic['subject'],
             'topic_id' => $topic_id,
-            'topic_subject' => $topic['subject'],
+            'subject' => $topic['subject'],
         ], 200);
     }
 
@@ -162,7 +162,7 @@ class TopicController extends Controller
             'status' => 'OK',
             'msg' => 'Successfully removed topic: '.$topic['subject'],
             'topic_id' => $id,
-            'topic_subject' => $topic['subject'],
+            'subject' => $topic['subject'],
         ], 200);
     }
 

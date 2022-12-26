@@ -16,6 +16,16 @@
 @section('articles')
     <section id="articles" class="container-fluid">
 
+    <div class="d-none d-lg-flex justify-content-end align-items-center position-relative" id="userSectionNav">
+        @if (Auth::check())
+            <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create an Article"
+                for="createArticleIcon">
+                    <a id="createArticleIcon" class="nav-item mx-4" href="{{ route('createArticle') }}">
+                        <i class="purpleLink fas fa-plus-circle fa-3x"></i>
+                    </a> Create Article
+            </label>
+        @endif
+
         @if ($articles->isEmpty())
             <div class="alert alert-custom mb-4 text-center" role="alert">
                 <h3 class="my-3">No results found</h3>

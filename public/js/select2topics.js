@@ -11,7 +11,7 @@ $('#filterTopics').select2({
     width: '25%',
     tokenSeparators: [',', ' ', ";"],
     theme: "bootstrap-5",
-    placeholder: "Filter by Tags",
+    placeholder: "Filter by Topics",
     closeOnSelect: false,
 });
 

@@ -16,7 +16,7 @@ class Topic extends Model
      * @var array
      */
     protected $guarded = [
-        'state',
+        'status',
     ];
 
     public function user()
