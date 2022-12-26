@@ -14,7 +14,7 @@ class CommentController extends Controller
     
     public function create(Request $request)
     {
-        $this->authorize('create', Content::class);
+        $this->authorize('create', Post::class);
 
         $validator = Validator::make($request -> all(),
             [
@@ -31,7 +31,7 @@ class CommentController extends Controller
             ], 400);
         }
 
-        $post = new Content;
+        $post = new Post;
         $post->body = $request->body;
         $post->author_id = Auth::id();
         $post->save();
@@ -76,12 +76,12 @@ class CommentController extends Controller
                 'errors' => ['Comment' => 'Comment does not exist, id: '.$id]
             ], 404);
 
-        $post = Content::find($comment->post_id);
+        $post = Post::find($comment->post_id);
         if (is_null($post)) 
             return response()->json([
                 'status' => 'Not Found',
-                'msg' => 'Content does not exist, id: '.$id,
-                'errors' => ['Content' => 'Content does not exist, id: '.$id]
+                'msg' => 'Post does not exist, id: '.$id,
+                'errors' => ['Post' => 'Post does not exist, id: '.$id]
             ], 404);
 
         $this->authorize('update', $post);
@@ -126,12 +126,12 @@ class CommentController extends Controller
                 'errors' => ['Comment' => 'Comment does not exist, id: '.$id]
             ], 404);
 
-        $post = Content::find($comment->post_id);
+        $post = Post::find($comment->post_id);
         if (is_null($post)) 
             return response()->json([
                 'status' => 'Not Found',
-                'msg' => 'Content does not exist, id: '.$id,
-                'errors' => ['Content' => 'Content does not exist, id: '.$id]
+                'msg' => 'Post does not exist, id: '.$id,
+                'errors' => ['Post' => 'Post does not exist, id: '.$id]
             ], 404);
 
         $this->authorize('delete', $post);

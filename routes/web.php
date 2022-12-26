@@ -49,9 +49,9 @@ Route::post('comment', 'CommentController@create');
 Route::put('comment/{id}', 'CommentController@update')->where(['id' => '[0-9]+']);
 Route::delete('comment/{id}', 'CommentController@destroy')->where(['id' => '[0-9]+']);
 
-// Content
-Route::delete('content/{id}', 'ContentController@removeFeedback')->where(['id' => '[0-9]+']);
-Route::put('content/{id}', 'ContentController@giveFeedback')->where(['id' => '[0-9]+']);
+// Post
+Route::delete('post/{id}', 'PostController@removeFeedback')->where(['id' => '[0-9]+']);
+Route::put('post/{id}', 'PostController@giveFeedback')->where(['id' => '[0-9]+']);
 
 // Admin
 Route::get('admin', 'AdminController@show')->name('admin');

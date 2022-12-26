@@ -33,7 +33,7 @@ class Comment extends Post
     }
 
     public function post() {
-      return $this->belongsTo(Content::class);
+      return $this->belongsTo(Post::class);
     }
 
     public function parent_comment() {
@@ -74,7 +74,7 @@ class Comment extends Post
           'hasFeedback' => $this['likes'] != 0 || $this['dislikes'] != 0,
           'author' => isset($this->author) ? [
               'id' => $this->author->id,
-              'name' => $this->author->name,
+              'username' => $this->author->username,
               'avatar' => $this->author->avatar,
           ] : null,
       ];

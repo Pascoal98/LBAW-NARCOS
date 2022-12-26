@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
-@section('scripts')
     <script type="text/javascript" src="{{ asset('js/comments.js') }}"> </script>
-    <script type="text/javascript" src="{{ asset('js/content.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/post.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/user.js') }}"></script>
-@endsection
+
 
 @section('title', "- Article")
 
@@ -46,7 +45,7 @@
                                     type="button"
                                     onclick="confirmAction('#delete_content_{{$article['id']}}', () => document.deleteArticleForm.submit())"
                                     class="btn btn-transparent my-0"
-                                >
+                                > Delete
                                     <i class="fas fa-trash fa-2x article-button text-danger mt-2"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove Article"></i>
                                 </button>
@@ -144,15 +143,11 @@
             <div class="h-50">
                 @if (Auth::check())
                     <div class="d-flex flex-row my-3" id="articleCommentsContainer">
-                        <div class="flex-column h-100 commentHeader mx-3 mx-lg-5">
-                            
-                        </div>
                         <div id="comment_form" class="flex-column w-100 m-0">
                             <textarea id="commentTextArea" class="flex-column border-light m-0 p-2" placeholder="Type here"></textarea>
                             <button id="newCommentButton"
                                 class="btn btn-primary px-4"
-                                onclick="createNewComment({{ $article['id'] }})"
-                            >
+                                onclick="createNewComment({{ $article['id'] }})">
                                 Comment
                             </button>
                         </div>
@@ -176,5 +171,6 @@
 @endsection
 
 @section('content')
+
     @yield('article')
 @endsection

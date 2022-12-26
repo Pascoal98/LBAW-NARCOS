@@ -182,16 +182,8 @@ const getCommentTextarea = () => {
     const mainDiv = document.createElement('div');
     mainDiv.classList.add('d-flex', 'flex-row', 'my-3', 'w-75');
 
-    const headerDiv = document.createElement('div');
-    headerDiv.classList.add('flex-column', 'h-100', 'commentHeader', 'mx-5');
-
-    const img = select('.commentHeader img').cloneNode();
-    headerDiv.appendChild(img);
-
     const imgText = document.createElement('p');
     imgText.innerText = 'You';
-    headerDiv.appendChild(imgText);
-    mainDiv.appendChild(headerDiv);
 
     const commentForm = document.createElement('div');
     commentForm.classList.add('flex-column', 'w-100', 'mb-0');

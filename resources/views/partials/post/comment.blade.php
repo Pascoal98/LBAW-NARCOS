@@ -66,7 +66,7 @@
                 <span onclick="openEditBox({{$comment['id']}}, {{$isReply}})" class="px-3 hover-pointer">Edit</span>
             @endif
 
-            <span class="px-3 publishedAt">{{ $comment['published_at'] }}</span>
+            <span class="px-3 publishedAt">{{ $comment['published_date'] }}</span>
 
             @if ($comment['is_edited'])
                 <i class="mx-3 editFlag">Edited</i>
