@@ -13,7 +13,10 @@ $guest = !Auth::check();
     <section id="userInfo">
         <div class="container-fluid py-3">
             <div class="row w-100 mt-4 mt-lg-5" id="userGraphics">
-                <div class="col-5 col-lg-6 d-flex justify-content-center align-items-center h-100">
+            <div class="col-5 col-lg-6 d-flex justify-content-center align-items-center h-100">
+                    <img src="{{ isset($user['avatar']) ? asset('storage/' . $user['avatar']) : "https://media.istockphoto.com/id/1142192548/vector/man-avatar-profile-male-face-silhouette-or-icon-isolated-on-white-background-vector.jpg?b=1&s=170667a&w=0&k=20&c=X33UQb6kE2ywnnbi0ZinZh_CnCZaPBCguqQayGlD99Y=" }}"
+                        id="avatarImg" onerror="this.src='{{ "https://media.istockphoto.com/id/1142192548/vector/man-avatar-profile-male-face-silhouette-or-icon-isolated-on-white-background-vector.jpg?b=1&s=170667a&w=0&k=20&c=X33UQb6kE2ywnnbi0ZinZh_CnCZaPBCguqQayGlD99Y=" }}'" alt="User Avatar" />
+
                 </div>
                 <div class="col-7 col-lg-6 d-flex flex-column align-items-center h-100">
                 </div>

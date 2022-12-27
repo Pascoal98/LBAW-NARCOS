@@ -1,7 +1,11 @@
 <div class="card flex-row flex-wrap bg-secondary">
-    <div class="card-header border-0 h-100 bg-transparent">
+<div class="card-header border-0 h-100 bg-transparent">
         <img class="squareImage" alt="Article Thumbnail" src="{{
-            isset($article['thumbnail'])}}">
+            isset($article['thumbnail']) ?
+            asset('storage/'.$article['thumbnail'])
+            :
+            "https://media.istockphoto.com/id/1138786414/vector/newspaper-vector-line-web-newsletter-or-news-app-icon.jpg?b=1&s=170667a&w=0&k=20&c=j3QOMreFnvADgm7X1C4foQDNg-oYYl87ZQu1PLUzIcM="
+        }}" onerror="this.src='{{ "https://media.istockphoto.com/id/1138786414/vector/newspaper-vector-line-web-newsletter-or-news-app-icon.jpg?b=1&s=170667a&w=0&k=20&c=j3QOMreFnvADgm7X1C4foQDNg-oYYl87ZQu1PLUzIcM=" }}'">
     </div>
 
     <a href="/article/{{ $article['id'] }}" class="h-100">

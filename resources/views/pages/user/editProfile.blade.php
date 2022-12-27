@@ -22,6 +22,14 @@ $isOpen = $errors->has('password');
             <div class="row w-100 " id="editAvatarContainer">
                 <label class="h2 py-0 my-0">Avatar</label>
                 <div id="avatarPreviewContainer" class="d-flex align-items-center">
+                    <img src={{ isset($user['avatar']) ? asset('storage/' . $user['avatar']) : "https://media.istockphoto.com/id/1142192548/vector/man-avatar-profile-male-face-silhouette-or-icon-isolated-on-white-background-vector.jpg?b=1&s=170667a&w=0&k=20&c=X33UQb6kE2ywnnbi0ZinZh_CnCZaPBCguqQayGlD99Y=" }}
+                        id="avatarPreview" onerror="this.src='{{ "https://media.istockphoto.com/id/1142192548/vector/man-avatar-profile-male-face-silhouette-or-icon-isolated-on-white-background-vector.jpg?b=1&s=170667a&w=0&k=20&c=X33UQb6kE2ywnnbi0ZinZh_CnCZaPBCguqQayGlD99Y=" }}'" alt="Avatar Preview"/>
+                    <input type="file" accept="image/*" id="imgInput" name='avatar' />
+                    @if ($errors->has('avatar'))
+                        <div class="w-50 py-1 text-danger ">
+                            <p class="">{{ $errors->first('avatar') }}</p>
+                        </div>
+                    @endif
                 </div>
             </div>
 
