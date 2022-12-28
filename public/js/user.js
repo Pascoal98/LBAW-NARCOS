@@ -84,13 +84,3 @@ function reportUserHandler() {
         errorContainer.classList.remove('d-none');
     }
 }
-
-const imgInput = select('#imgInput');
-if (imgInput) {
-    imgInput.onchange = evt => {
-        const [file] = imgInput.files
-        if (file) {
-            select('#avatarPreview').src = URL.createObjectURL(file)
-        }
-    }
-}

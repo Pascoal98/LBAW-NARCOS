@@ -12,7 +12,7 @@ use Illuminate\Validation\Rule;
 class HomeController extends Controller
 {
 
-    private const ARTICLE_LIMIT = 10;
+    private const ARTICLE_LIMIT = 5;
 
     /**
      * Displays the home page
@@ -24,7 +24,7 @@ class HomeController extends Controller
         $type = Auth::check() ? 'recommended' : 'trending';
         $results = $this->filterByType($type, 0, $this::ARTICLE_LIMIT);
 
-        $topics = Topic::listTopicsByStatus('ACCEPTED')->map(fn ($topic) => $topic->only('id', 'name'));
+        $topics = Topic::listTopicsByStatus('ACCEPTED')->map(fn ($topic) => $topic->only('id', 'subject'));
 
         return view('pages.home', [
             'articles' => $results['articles'],
@@ -46,7 +46,7 @@ class HomeController extends Controller
             'topics' => 'nullable|array',
             'topics.*' => [
                 'integer',
-                Rule::exists('topic', 'id')->where('state', 'ACCEPTED')
+                Rule::exists('topic', 'id')->where('status', 'ACCEPTED')
             ],
             'minDate' => 'nullable|string|date_format:Y-m-d|before_or_equal:'.date('Y-m-d'),
             'maxDate' => 'nullable|string|date_format:Y-m-d|before_or_equal:'.date('Y-m-d'),
@@ -71,8 +71,7 @@ class HomeController extends Controller
         }
 
         if (isset($request->minDate)) $minTimestamp = strtotime($request->minDate);
-        if (isset($request->maxDate)) // Allow articles posted in the same day
-        $maxTimestamp = strtotime($request->maxDate . '+1 day');
+        if (isset($request->maxDate)) $maxTimestamp = strtotime($request->maxDate . '+1 day');
 
         if (isset($request->minDate) && isset($request->maxDate) && $maxTimestamp < $minTimestamp)
             return response()->json([

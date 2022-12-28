@@ -422,10 +422,22 @@ paths:
 
   # M03 : Articles
 
-  /search:
+  /:
     get:
       operationId: R301
-      summary: "R301 : Search Page"
+      summary: "R301: Get Home Page"
+      description: "Fetch Home Page of the application that depends on the user. Access: PUB"
+      tags:
+        - "M03: Articles"
+
+      responses:
+        "200":
+          description: "OK. Show home page feed"
+
+  /search:
+    get:
+      operationId: R302
+      summary: "R302 : Search Page"
       description: "Show Search Page given a search type and value. Access: PUB"
       tags:
         - "M02: Profile and User Information"
@@ -454,8 +466,8 @@ paths:
 
   /search/articles:
     get:
-      operationId: R302
-      summary: "R302 : Returns articles according to given parameters"
+      operationId: R303
+      summary: "R303 : Returns articles according to given parameters"
       description: "Returns search results according to user parameters. Access: PUB"
       tags:
         - "M03: Articles"
@@ -487,10 +499,68 @@ paths:
         "200":
           description: "OK. Show searched articles"
 
+  /article/filter:
+    get:
+      operationId: R304
+      summary: "R304 : Return articles according to certain filters"
+      description: "Show filtered articles by certain criteria. Access: PUB"
+      tags:
+        - "M03: Articles"
+
+      parameters:
+        - in: query
+          name: type
+          description: "feed type"
+          schema:
+            type: string
+            default: "trending"
+            enum:
+              - "trending"
+              - "recommended"
+              - "recent"
+          required: false
+        - in: query
+          name: offset
+          description: "value used to fetch results starting at a certain value"
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          required: false
+        - in: query
+          name: limit
+          description: "value used to limit the number of results"
+          schema:
+            type: integer
+            minimum: 1
+          required: false
+
+      requestBody:
+        required: false
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                topics:
+                  type: array
+                minDate:
+                  type: string
+                  format: date
+                maxDate:
+                  type: string
+                  format: date
+
+      responses:
+        "200":
+          description: "OK. Show filter results"
+        "400":
+          description: "Failed to filter articles. Bad Request"
+
   /article:
     get:
-      operationId: R303
-      summary: "R303 : Create article form"
+      operationId: R305
+      summary: "R305 : Create article form"
       description: "Provide new article creation form. Access: USR"
       tags:
         - "M03: Articles"
@@ -510,8 +580,8 @@ paths:
                   value: '/login' 
 
     post:
-      operationId: R304
-      summary: "R304 : Create article action"
+      operationId: R306
+      summary: "R306 : Create article action"
       description: "Processes the new article creation form. Access: USR"
       tags:
         - "M03: Articles"
@@ -541,8 +611,8 @@ paths:
 
   /article/{id}:
     get:
-      operationId: R305
-      summary: "R305 : View Article Page"
+      operationId: R307
+      summary: "R307 : View Article Page"
       description: "View an Article Page. Access: PUB"
       tags:
         - "M03: Articles"
@@ -561,8 +631,8 @@ paths:
           description: "Article not found"
 
     delete:
-      operationId: R306
-      summary: "R306 : Delete article action"
+      operationId: R308
+      summary: "R308 : Delete article action"
       description: "Processes a request to delete an article. Access: OWN, ADM"
       tags:
         - "M03: Articles"
@@ -608,8 +678,8 @@ paths:
 
 /article/{id}/edit:
     get:
-      operationId: R307
-      summary: "R307 : Article edition form"
+      operationId: R309
+      summary: "R309 : Article edition form"
       description: "Provide a form for article edition. Access: OWN"
       tags:
         - "M03: Articles"
@@ -632,8 +702,8 @@ paths:
           description: "Article not found"
 
     put:
-      operationId: R308
-      summary: "R308 : Edit article action"
+      operationId: R310
+      summary: "R310 : Edit article action"
       description: "Processes the user edit profile form submission. Access: OWN"
       tags:
         - "M03: Articles"
@@ -994,10 +1064,10 @@ paths:
             schema:
               type: object
               properties:
-                tag_name:
+                topic_name:
                   type: string
               required:
-                - tag_name
+                - topic_name
       responses:
         "200":
           description: "Ok. Topic was successfully proposed"

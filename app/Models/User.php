@@ -66,6 +66,10 @@ class User extends Authenticatable
         return $this->hasMany(Feedback::class);
     }
 
+    public function favoriteTopics()
+    {
+        return $this->belongsToMany(Topic::class, 'favorite_topic', 'user_id');
+    }
 
     public function articles()
     {

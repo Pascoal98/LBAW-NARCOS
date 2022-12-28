@@ -73,8 +73,7 @@ class UserController extends Controller
             'password' => 'required|string|password'
         ]);
 
-        if ($validator->fails())
-            return redirect()->back()->withErrors($validator->errors());
+        
 
         $deleted = $user->delete();
         if ($deleted)

@@ -1,36 +1,3 @@
-$('input[name="daterange"]').daterangepicker({
-    opens: 'center',
-    autoUpdateInput: false,
-    cancelButtonClasses: 'button-secondary',
-    locale: {
-      format: 'DD/MM/YYYY'
-    }
-  
-  }, (start, end, label) => {
-    minDate = start.format('YYYY-MM-DD');
-    maxDate = end.format('YYYY-MM-DD');
-    filterArticles();
-});
-  
-$('input[name="daterange"]').on('apply.daterangepicker', function(e, picker) {
-    $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-});
-
-$('#daterangeMobile').daterangepicker({
-  opens: 'center',
-  autoUpdateInput: false,
-  cancelButtonClasses: 'button-secondary',
-  locale: {
-    format: 'DD/MM/YYYY'
-  }
-
-}, (start, end, label) => {
-  minDate = start.format('YYYY-MM-DD');
-  maxDate = end.format('YYYY-MM-DD');
-  filterArticles();
-});
-
-
 const birthDate12Years = new Date();
 birthDate12Years.setFullYear(birthDate12Years.getFullYear() - 12);
 
@@ -49,7 +16,7 @@ const birthDatePicker = $('input[name=birthDatePicker]').daterangepicker({
     locale: {
       format: 'DD-MM-YYYY'
     }},
-    (start, end, label) => select('input[name=birthDate]').value = start.format('YYYY-MM-DD')
+    (start, end, label) => select('input[name=date_of_birth]').value = start.format('YYYY-MM-DD')
 );
 
 $('input[name=birthDatePicker]').on('apply.daterangepicker', function(e, birthDatePicker) {
