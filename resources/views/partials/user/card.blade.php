@@ -31,7 +31,7 @@
     </div>
 
     <div class="card-block user-card-right d-flex flex-column align-items-center justify-content-start py-4">
-        @if ($user['is_admin'])
+        @if ($user['isAdmin'])
             <span class="badge rounded-pill bg-custom mt-4 mb-4"> Admin </span>
         @endif
 

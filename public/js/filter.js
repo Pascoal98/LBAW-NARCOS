@@ -1,4 +1,4 @@
-const ARTICLE_FILTER_LIMIT = 10;
+const ARTICLE_FILTER_LIMIT = 5;
 let minDate, maxDate;
 
 function replaceArticles() {
@@ -37,7 +37,7 @@ function replaceArticles() {
 
 const getFilterUrl = (offset = 0) => {
   const type = select('input[name="filterType"]:checked').id;
-  let url = `/api/article/filter?type=${type}&offset=${offset}&limit=${ARTICLE_FILTER_LIMIT}`;
+  let url = `/article/filter?type=${type}&offset=${offset}&limit=${ARTICLE_FILTER_LIMIT}`;
 
   const topics = Array.from(select("#filterTopics").selectedOptions)
     .map((elem) => parseInt(elem.value));

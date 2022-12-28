@@ -50,10 +50,7 @@
             <select id="filterTopics" onchange="filterArticles()" multiple>
                 @foreach($topics as $topic)
                     <option value="{{ $topic['id'] }}">
-                    @if (old('topics') && in_array($topic['id'], old('topics')))
-                                        selected
-                                    @endif
-                                    {{ $topic['id'] }} -> {{ $topic['subject'] }}
+                        {{ $topic['subject'] }}
                     </option>
                 @endforeach
             </select>
