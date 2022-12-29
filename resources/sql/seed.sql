@@ -550,10 +550,15 @@ VALUES
 
 INSERT INTO post (body, published_date, is_edited, likes, dislikes, author_id)
 VALUEs
-    ('When referring Center on', TO_TIMESTAMP('1977-08-31', 'YYYY-MM-DD'), False, 54, 75, 1),
-    ('Become attached or étages. These physical types, in', TO_TIMESTAMP('1954-06-07', 'YYYY-MM-DD'), False, 12, 2, 3),
-    ('Simple compounds, Christian Andersen (1805–1875), the philosophical works of Jābir ibn Hayyān (721–815 CE), al-Battani', TO_TIMESTAMP('1947-11-24', 'YYYY-MM-DD'), False, 51, 16, 2),
-    ('And substorms, by GovPubs at the same time, some organizations now use the CFP franc', TO_TIMESTAMP('1983-11-28', 'YYYY-MM-DD'), False, 72, 76, 6),
+    ('This match had been billed as Kylian Mbappé vs. Messi  the 23-year-old French star ready to assume the mantle of the worlds greatest player from his 35-year-old Paris Saint-Germain teammate.', TO_TIMESTAMP('2022-12-18', 'YYYY-MM-DD'), False, 54, 75, 1),
+    ('Fall and winter are associated with a higher incidence of upper respiratory infections, such as the common cold and flu, due to the increased transmission of respiratory viruses.
+    Although cooler temperatures and low humidity are associated with increased susceptibility to respiratory viruses, the biological mechanisms underlying this relationship are not understood.
+    A recent study showed that cold temperatures lead to a decline in the immune response elicited by cells in the nasal cavity to viruses, which explains why people are more susceptible to upper respiratory infections in colder temperatures.', TO_TIMESTAMP('2022-10-10', 'YYYY-MM-DD'), False, 12, 2, 3),
+    ('The way of water connects all things. The sea is our home before our birth and after we die.” Beyond the 3D visual spectacle that Avatar is, something we trust James Cameron to deliver, the franchises beauty lies in its underlying spiritual arc and ode to continuity of life. Life finds a way. It evolves no matter the surroundings as love is transformative.
+    Humans call the Navi hostiles and insurgents, when it is they who forcefully infiltrate and occupy their land. Despite its magical, fictional setting, Avatar is not devoid of socio-political themes. It addresses race, civilisation, takes a strong anti-military stand and makes a plea for environment conservation through its simple story of parents and children. A spectacular climax revolves around parents protecting their children and vice versa.
+    From lush jungles to the gorgeous reefs… the action shifts from forests to the sea this time around and its equally meditative and hypnotic. For over three hours you find yourself immersed in the enchanting world of an oceanic clan (Metkayina) or the reef people who give Sully and his family a refuge from humans. The sequel scores high on action and emotion. One is not compromised for the other. Happiness is simple. The Sullys stay together. This is our biggest weakness and our greatest strength,” says Jake Sully and the story embodies that spirit. The tale isnt unique per se but the storytelling and visual excellence are otherworldly epic. Mounted on a massive scale, not once do you find yourself wanting to return to the real world
+    While the predecessor set the bar high for visual effects 13 years ago, the new film takes it a step further. Like the previous film, the director does not use 3D as a gimmick but uses it artfully to accentuate audience immersion in the world and story. Avatar: The Way of Water deserves be watched in IMAX 3D. It is the greatest immersive cinema experience of the year — world building at its finest.', TO_TIMESTAMP('2022-10-04', 'YYYY-MM-DD'), False, 51, 16, 2),
+    ('If you think religion belongs to the past and we live in a new age of reason, you need to check out the facts: 84% of the worlds population identifies with a religious group. Members of this demographic are generally younger and produce more children than those who have no religious affiliation, so the world is getting more religious, not less  although there are significant geographical variations.', TO_TIMESTAMP('2018-08-27', 'YYYY-MM-DD'), False, 72, 76, 6),
     ('Of conception. Sea, Tasman Sea, and Mediterranean', TO_TIMESTAMP('1945-03-22', 'YYYY-MM-DD'), False, 34, 70, 11),
     ('(the Internet body temperature', TO_TIMESTAMP('1987-08-26', 'YYYY-MM-DD'), False, 13, 40, 13),
     ('Crossed from or low-pressure', TO_TIMESTAMP('2014-11-18', 'YYYY-MM-DD'), False, 61, 5, 9),
@@ -561,10 +566,10 @@ VALUEs
 
 INSERT INTO article (post_id, title, thumbnail) 
 VALUES
-    (1, 'Boasted a strong tongue (containing similar touch receptors to', null),
-    (2, 'Threaten Egypts main systems of considerable Amerindian ancestry form the Downtown Loop, runs 2.7 miles', null),
-    (3, 'One "fair" secure Virtual', null),
-    (4, 'Prediction must tasks, but on', null);
+    (1, 'The clashing of two stars', null),
+    (2, 'Why do we always seem to catch a cold or flu in cold weather? A new study explains', null),
+    (3, 'Avatar: The Way Of Water Movie Review : A worthy sequel', null),
+    (4, 'Religion: why faith is becoming more and more popular', null);
 
 INSERT INTO feedback (user_id, post_id, is_like)
 VALUES
@@ -576,7 +581,7 @@ VALUES
 
 INSERT INTO article_topic(article_id, topic_id)
 VALUES
-    (1,3),
-    (2,2),
-    (3,7),
+    (1,1),
+    (2,5),
+    (3,2),
     (4,8);
