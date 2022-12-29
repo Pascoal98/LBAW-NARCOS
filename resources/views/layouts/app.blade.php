@@ -23,9 +23,11 @@
   <body>
     <main>
       @include('partials.navbar')
-      <section id="content">
+      <div id="content">
         @yield('content')
-      </section>
+      </div>
+
+      @include('partials.footer')
     </main>
     @include('layouts.scripts')
   </body>
