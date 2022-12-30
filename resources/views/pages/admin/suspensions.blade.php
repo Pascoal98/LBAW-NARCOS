@@ -50,19 +50,6 @@
 
                                     <hr>
                                 @endforeach
-
-                                <div class="manageUserContainer col-4 col-lg-2 text-center">
-                                    <a href="/user/{{ $user['id'] }}" class="text-center">
-                                        <img class="mb-4" alt="Suspended User Avatar" src="{{ 
-                                            isset($user['avatar']) 
-                                            ? asset('storage/avatars/' . $user['avatar']) 
-                                            : $userImgPHolder 
-                                            }}"
-                                            id="avatarImg" onerror="this.src='{{ $userImgPHolder }}'" />
-                                        
-                                        <span> {{ $user['username'] }} </span>
-                                    </a>
-                                </div>
                                 
                                 <button onclick="unsuspendUser(this, {{ $user['id'] }})" type="button" 
                                     class="my-0 py-0 btn btn-lg">
