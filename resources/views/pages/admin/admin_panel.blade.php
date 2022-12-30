@@ -26,7 +26,7 @@
                     <div class="iconContainer shadow-lg rounded-circle bg-dark">
                         <i class="fas fa-ban reportsIcon text-light"></i>
                     </div>
-                </div>
+                </div>  
                 <div class="manageLink">
                     <h3>Manage Reports</h3>
                 </div>
