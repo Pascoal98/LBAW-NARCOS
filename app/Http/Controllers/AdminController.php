@@ -163,7 +163,7 @@ class AdminController extends Controller
 
         return response()->json([
             'status' => 'OK',
-            'msg' => 'Successfully suspensed user '.$user->name,
+            'msg' => 'Successfully suspensed user '.$user->username,
             'id' => $suspension->id,
         ], 200);
     }
@@ -190,7 +190,7 @@ class AdminController extends Controller
         if (!$user->is_suspended)
             return response()->json([
                 'status' => 'OK',
-                'msg' => 'User '.$user->name.' was alreay unsuspended',
+                'msg' => 'User '.$user->username.' was alreay unsuspended',
             ], 200);
 
         Suspension::where('user_id', $id)
@@ -218,11 +218,10 @@ class AdminController extends Controller
         $reportsInfo = Report::orderByDesc('reported_at')->get()
             ->map(function ($report) {
 
-                $reportedInfo = $report->reported_id
-                    ->only('id', 'name', 'avatar', 'is_admin', 'is_suspended');
+                $reportedInfo = $report->reported->only('id', 'username', 'avatar', 'is_admin', 'is_suspended');
 
-                if (isset($report->reporter_id))
-                    $reporterInfo = $report->reporter_id->only('id', 'name');
+                if (isset($report->reporter))
+                    $reporterInfo = $report->reporter->only('id', 'username');
 
                 else $reporterInfo = null;
 
@@ -250,31 +249,31 @@ class AdminController extends Controller
     {
         $this->authorize('topics', Admin::class);
 
-        $topics_pending = $this->gettopicsByState('PENDING');
+        $topics_pending = $this->getTopicByStatus('PENDING');
 
-        $topics_accepted = $this->gettopicsByState('ACCEPTED');
+        $topics_accepted = $this->getTopicByStatus('ACCEPTED');
 
-        $topics_rejected = $this->gettopicsByState('REJECTED');
+        $topics_rejected = $this->getTopicByStatus('REJECTED');
 
-        return view('pages.admin.managetopics', [
+        return view('pages.admin.manageTopics', [
             'topics_pending' => $topics_pending,
             'topics_accepted' => $topics_accepted,
             'topics_rejected' => $topics_rejected,
         ]);
     }
 
-    private function gettopicsByState(string $state) {
-        $topics = topic::listtopicsByState($state)->map(function ($topic) {
+    private function getTopicByStatus(string $status) {
+        $topics = Topic::listTopicsByStatus($status)->map(function ($topic) {
             if (isset($topic->user))
-                $userInfo = $topic->user->only('id', 'name', 'avatar');
+                $userInfo = $topic->user->only('id', 'username', 'avatar');
 
             else $userInfo = null;
 
             return [
                 'id' => $topic->id,
-                'name' => $topic->name,
-                'proposed_at' => $topic->proposed_at,
-                'state' => $topic->state,
+                'subject' => $topic->subject,
+                'proposed_date' => $topic->proposed_date,
+                'status' => $topic->status,
                 'user' => $userInfo
             ];
         });

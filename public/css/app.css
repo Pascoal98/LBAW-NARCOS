@@ -605,20 +605,6 @@ option {
   margin: auto;
 }
 
-/* Static Pages */
-
-#faqAccordion button {
-  margin-bottom: 0;
-}
-
-.accordion-button {
-  background-color: var(--bs-dark);
-}
-
-#contactsSection .card {
-  width: 20rem;
-}
-
 /* Content */
 
 .feedbackIconLike:hover {
@@ -654,10 +640,6 @@ option {
 }
 .font-3x {
   font-size: 3em;
-}
-
-.notification-bell {
-  font-size: 1.5em;
 }
 
 .squareImage {

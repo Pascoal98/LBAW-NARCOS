@@ -1,5 +1,5 @@
-<footer class="bg-light text-center text-white" id="footerContainer">
-    <div class="row m-0 p-0 w-1">
+<footer class="bg-dark text-center text-white" id="footerContainer">
+    <div class="row m-0 p-0 w-10">
         <div class="col-12 col-lg-2 py-2">
             <a class="text-uppercase link-light" href="{{ url('/about') }}"> About Us </a>
         </div>
@@ -32,7 +32,7 @@
         </div>
 
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        Â© 2022 Copyright:
+        © 2023 Copyright:
         <a class="text-reset" href="{{ url('/') }}">LBAW</a>
     </div>
 

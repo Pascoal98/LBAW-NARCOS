@@ -56,11 +56,6 @@
                             </div>
                         @endif
                     </div>
-
-                    <div class="flex-row">
-                        <label for="thumbnail">Article Thumbnail</label>
-
-                    </div>
                     
                     <div class="flex-row h-100">
                         <label for="body">Article Body</label>
@@ -80,13 +75,6 @@
                     </div>
                 </form>
 
-            </div>
-
-            <div class="d-none d-lg-block author-container flex-col p-3 text-dark">
-                @include('partials.authorInfo', [
-                    'author' => $author,
-                    'isOwner' => true
-                ])
             </div>
 
         </div>

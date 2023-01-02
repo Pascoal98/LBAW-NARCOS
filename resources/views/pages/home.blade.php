@@ -8,7 +8,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     
     <script type="text/javascript" src="{{ asset('js/select2topics.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/filter.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/topics.js') }}"></script>
 @endsection
 
@@ -40,7 +39,7 @@
                     <span class="mx-2">Recent</span>
                 </label>
             </div>
-            <select id="filterTopics" onchange="filterArticles()" multiple>
+            <select id="filterTopics" multiple>
                 @foreach($topics as $topic)
                     <option value="{{ $topic['id'] }}">
                         {{ $topic['subject'] }}

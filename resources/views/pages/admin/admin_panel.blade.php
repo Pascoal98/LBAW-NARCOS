@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="manageLink">
-                    <h3>Manage topics</h3>
+                    <h3>Manage Topics</h3>
                 </div>
             </div>
         </a>
