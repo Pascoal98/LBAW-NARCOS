@@ -94,20 +94,20 @@ class HomeController extends Controller
 
         if (isset($request->minDate))
             $articles = $articles->filter(function ($article) use ($minTimestamp) {
-                $timestamp = strtotime($article->published_at);
+                $timestamp = strtotime($article->published_date);
                 return $timestamp >= $minTimestamp;
             });
 
         if (isset($request->maxDate))
             $articles = $articles->filter(function ($article) use ($maxTimestamp) {
-                $timestamp = strtotime($article->published_at);
+                $timestamp = strtotime($article->published_date);
                 return $timestamp <= $maxTimestamp;
             });
 
         $results = $this->filterByType($request->type, $request->offset, $request->limit, $articles);
 
         return response()->json([
-            'html' => view('partials.content.articles', [
+            'html' => view('partials.post.articles', [
                 'articles' => $results['articles']
             ])->render(),
             'canLoadMore' => $results['canLoadMore']
@@ -146,7 +146,7 @@ class HomeController extends Controller
         }
 
         else if ($type === 'recent')
-            $sortedArticles = $articles->sortByDesc('published_at');
+            $sortedArticles = $articles->sortByDesc('published_date');
 
         else $sortedArticles = $articles;
 
@@ -163,8 +163,8 @@ class HomeController extends Controller
 
     private function compareArticleDates($a, $b)
     {
-        $d1 = date_create($a->published_at);
-        $d2 = date_create($b->published_at);
+        $d1 = date_create($a->published_date);
+        $d2 = date_create($b->published_date);
 
         $daysDiff = date_diff($d1, $d2)->format("%a");
         if ($daysDiff === "0") return 0;
