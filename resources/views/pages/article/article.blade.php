@@ -23,18 +23,19 @@
                     @php
                         $article_published_date = date('F j, Y', /*, g:i a',*/ strtotime($article['published_date']));
                     @endphp
-                    <i id="publishedAt">{{ $article_published_date }}</i>
+                    <i id="publishedAt">{{ $article_published_date }}</i>                      
 
-                    @if ($isAuthor || $isAdmin)
+
+                    @if ($is_author || $is_admin)
                         <div id="articleButtons" class="d-flex align-items-center">
-                            @if ($isAuthor)
+                            @if ($is_author)
                                 <a id="editArticleButton" href="{{ route('editArticle', ['id' => $article['id']])}}"
                                     class="fas fa-edit fa-2x article-button darkPurpleLink me-4"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Article">
                                 </a>
                             @endif
 
-                            @if (!$hasFeedback || $isAdmin)
+                            @if (!$hasFeedback || $is_admin)
                                 <form name="deleteArticleForm" id="deleteArticleForm" method="POST"
                                     action="{{ route('article', ['id' => $article['id']]) }}">
                                     @csrf
@@ -54,13 +55,17 @@
                     @endif
                 </div>
 
+                <a href="{{ route('userProfile', ['id' => $author['id']]) }}">
+                        {{ $author['username'] }}
+                </a> 
+
                 <p class="flex-row mt-3 mb-1">
 
                     @foreach ($topics as $topic)
                         @include('partials.topic', ['topic' => $topic ])
                     @endforeach
 
-                    @if ( $isAuthor )
+                    @if ( $is_author )
                         <i class="fas fa-thumbs-up ps-5"  id="articleLikes"> 
                             <span class="ms-1">{{ $article['likes'] }}</span>
                         </i>
@@ -125,12 +130,6 @@
 
         </div>
 
-        <div class="d-block d-lg-none author-container m-auto rounded position-relative">
-            @include('partials.authorInfo', [
-                'author' => $author,
-                'isOwner' => $isAuthor
-            ])
-        </div>
 
         <div class="d-flex flex-column" id="comments-section">
 

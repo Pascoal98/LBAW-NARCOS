@@ -77,7 +77,7 @@ const removeFeedbackHandler = (elem, post_id, is_like, is_comment) => function()
 }
 
 const likeClasses = is_comment => is_comment ? 
-    ["fa fa-thumbs-up feedbackIcon"] : ["fas fa-thumbs-up ps-5 feedbackIcon"];
+    ["fa fa-thumbs-up feedbackIconDislike"] : ["fas fa-thumbs-up ps-5 feedbackIconLike"];
 
 const dislikeClasses = is_comment => is_comment ? 
-    ["fa fa-thumbs-down ps-3 pe-3 feedbackIcon"] : ["fas fa-thumbs-down ps-3 feedbackIcon"];
+    ["fa fa-thumbs-down ps-3 pe-3 feedbackIconLike"] : ["fas fa-thumbs-down ps-3 feedbackIconDislike"];

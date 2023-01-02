@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username', 'email', 'password', 'date_of_birth',
-        'avatar', 'description',
+        'avatar',
     ];
 
 
@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     public function favoriteTopics()
     {
-        return $this->belongsToMany(Topic::class, 'favorite_topic', 'user_id');
+        return $this->belongsToMany(Topic::class, 'topic_follow', 'user_id');
     }
 
     public function articles()

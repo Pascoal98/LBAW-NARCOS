@@ -64,6 +64,24 @@ $isOpen = $errors->has('password');
                             @endif
                         </div>
                     </div>
+                    <div class="col-12 col-lg-4 mt-3 mt-lg-0">
+                    <label class="h2 mb-3" for="topicsInput">Favorite Topics</label>
+
+                    <select id="favoriteTopics" name="favoriteTopics[]" multiple>
+                        @foreach ($topics as $topic)
+                            <option class="m-0" @if (old('favoriteTopics') ? in_array($topic['id'], old('favoriteTopics')) : $favoriteTopics->contains('id', $topic['id']))
+                                selected
+                        @endif
+                        value="{{ $topic['id'] }}">{{ $topic['subject'] }}</option>
+                        @endforeach
+                    </select>
+
+                    @if ($errors->has('favoriteTopics'))
+                        <div class="alert alert-danger mt-2 mb-0 p-0 w-50 text-center" role="alert">
+                            <p class="mb-0">{{ $errors->first('favoriteTopics') }}</p>
+                        </div>
+                    @endif
+                </div>
                 </div>
             </div>
 
@@ -74,7 +92,7 @@ $isOpen = $errors->has('password');
 
         <div class="container-fluid py-3 w-75 mt-5 pt-5 border-top border-light">
             <div class="d-flex position-relative mb-3">
-                <a class="h1 w-100 text-darkPurple" href="#advancedContainer" data-bs-toggle="collapse" role="button"
+                <a class="h1 w-100 text-orange" href="#advancedContainer" data-bs-toggle="collapse" role="button"
                     aria-expanded="false" aria-contols="advancedContainer">Advanced
                     Settings</a>
                 <i class="fa fa-caret-down fa-1x position-absolute pe-none caretDown"></i>

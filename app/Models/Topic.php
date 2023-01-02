@@ -26,12 +26,17 @@ class Topic extends Model
 
     public function favoriteUsers()
     {
-        return $this->belongsToMany(User::class, 'favorite_topic');
+        return $this->belongsToMany(User::class, 'topic_follow', 'user_id', 'topic_id');
     }
 
     public function articleTopics()
     {
-        return $this->belongsToMany(Article::class, 'article_topic', 'topic_id', 'article_id');
+        return $this->belongsToMany(Article::class, 'article_topic', 'article_id', 'topic_id');
+    }
+
+    public function articles()
+    {
+        return Article::where('topic_id', $this->id)->get();
     }
 
     public static function listTopicsByStatus($topic_status)

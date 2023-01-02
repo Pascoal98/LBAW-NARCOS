@@ -1,14 +1,6 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbarContainer">
     <h1><a href="{{ url('/') }}">NARCOS</a></h1>
-        @if (Auth::check())
-        <a class="button" href="{{url('/user/'. Auth::id()) }}"> My Profile </a>
-        <a class="button" href="{{ url('/logout') }}"> Logout </a>
-        @else
-        <a class="button" href="{{ url('/login') }}"> Login </a>
-        <a class="button" href="{{ url('/register') }}"> Register </a>
-        @endif
-
         <button class="navbar-toggler m-0" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -38,14 +30,21 @@
                 
             </form>
             
-        </div>           
+        </div>         
+        
+        
            
+        @if (Auth::check())
+            @if (Auth::user()->is_admin)
+            <a class="button" href="{{ url('/admin') }}">Admin Panel </a>
+            @endif
+        <a class="button" href="{{url('/user/'. Auth::id()) }}"> My Profile </a>
+        <a class="button" href="{{ url('/logout') }}"> Logout </a>
+        @else
+        <a class="button" href="{{ url('/login') }}"> Login </a>
+        <a class="button" href="{{ url('/register') }}"> Register </a>
+        @endif
  
-        <div id="dropdownContainer" class="nav-item dropdown ms-5">
-            <a class="dropdown-item dropdown-custom-item"
-                 href="{{ url('/admin') }}">Admin Panel
-            </a>    
-        </div>
 
     </nav>
 </header>

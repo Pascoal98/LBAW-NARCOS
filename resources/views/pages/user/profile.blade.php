@@ -29,13 +29,14 @@ $guest = !Auth::check();
                     @if ($isOwner)
                         <button type="button" class="btn transparentButton my-0 py-0 me-2 rounded-circle"
                         data-bs-toggle="tooltip" data-bs-placement="left" title="Edit Profile">
-                            <a class="fa fa-pencil font-3x darkPurpleLink" href="/user/{{ $user['id'] }}/edit"> Edit Profile</a>
+                            <a class="fa fa-pencil font-3x" href="/user/{{ $user['id'] }}/edit"> Edit Profile</a>
                         </button>
                         <form method="GET" class="m-0 p-0 mx-0 mx-lg-3" action="{{ route('followedUsers', $user['id']) }}">
-                            <button type="submit" class="btn btn-sm btn-primary my-0 py-0" >
+                            <button type="submit" class="btn btn-outline-primary" >
                                 Followed Users
                             </button>
                         </form>
+                        <p class="user-card-description mt-4 mb-4">Reputation: {{ $user['reputation'] }}</p>
                     @else
                         @if (!$guest)
                             @if ($follows)

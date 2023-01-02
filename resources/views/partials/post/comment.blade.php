@@ -9,7 +9,7 @@
 
             @if (isset($comment['author']))
                 <a href="/user/{{ $comment['author']['id'] }}" class="text-white">
-                    {{ $comment['isAuthor'] ? 'You' : $comment['author']['username'] }}
+                    {{ $comment['is_author'] ? 'You' : $comment['author']['username'] }}
                 </a>
             @else
                 <i>Deleted Account</i>
@@ -20,7 +20,7 @@
             <div class="commentTextContainer border border-light flex-column p-3 mb-3">{{$comment['body']}}</div>
 
             <i
-            @if ($comment['isAuthor'])
+            @if ($comment['is_author'])
                 class="fa fa-thumbs-up"
             @else
                 @if ($comment['liked'])
@@ -39,7 +39,7 @@
             </i>
 
             <i
-            @if ($comment['isAuthor'])
+            @if ($comment['is_author'])
                 class="fa fa-thumbs-down ps-3 pe-3"
             @else
                 @if ($comment['disliked'])

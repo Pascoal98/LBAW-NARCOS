@@ -46,7 +46,7 @@ class Comment extends Post
 
     public function getInfo() {
       $published_date = date('F j, Y', strtotime( $this['published_date'] ) ) ;
-      $isAuthor = isset($this->author) ? $this->author->id === Auth::id() : false;
+      $is_author = isset($this->author) ? $this->author->id === Auth::id() : false;
 
       $feedback = Auth::check()
         ? Auth::user()->feedback->where('post_id', '=', $this['id'])->first()
@@ -70,7 +70,7 @@ class Comment extends Post
           'is_edited' => $this->is_edited,
           'liked' => $liked,
           'disliked' => $disliked,
-          'isAuthor' => $isAuthor,
+          'is_author' => $is_author,
           'hasFeedback' => $this['likes'] != 0 || $this['dislikes'] != 0,
           'author' => isset($this->author) ? [
               'id' => $this->author->id,

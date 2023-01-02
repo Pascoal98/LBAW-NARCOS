@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Article;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -30,7 +31,6 @@ class SearchController extends Controller
             $search = $this->getArticleSearch($request->input('query'), 0, $this::SEARCH_LIMIT);
         else if ($request->type === 'users')
             $search = $this->getUserSearch($request->input('query'), 0, $this::SEARCH_LIMIT);
-
         return view('pages.search', [
             'type' => $request->type,
             'query' => $request->input('query'),
@@ -100,7 +100,7 @@ class SearchController extends Controller
                 'username' => $user->username,
                 'avatar' => $user->avatar,
                 'reputation' => $user->reputation,
-                'isAdmin' => $user->is_admin,
+                'is_admin' => $user->is_admin,
                 'followed' => $followed,
             ];
         });

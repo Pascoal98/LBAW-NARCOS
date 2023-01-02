@@ -61,6 +61,7 @@
         @include('partials.user.list', ['users' => $results])
     </section>
 
+    
 @endif
 
 @endsection

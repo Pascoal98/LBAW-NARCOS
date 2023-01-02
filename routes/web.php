@@ -22,6 +22,7 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 
 // User
+Route::get('users', 'UserController@showAll');
 Route::get('user/{id}', 'UserController@show')->name('userProfile')->where(['id' => '[0-9]+']);
 Route::get('user/{id}/edit', 'UserController@edit')->name('editUser')->where(['id' => '[0-9]+']);
 Route::put('user/{id}', 'UserController@update')->name('editProfile')->where(['id' => '[0-9]+']);

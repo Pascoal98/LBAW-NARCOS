@@ -75,14 +75,6 @@
                 </form>
 
             </div>
-
-            <div class="d-none d-lg-block author-container flex-col p-3 text-dark">
-                @include('partials.authorInfo', [
-                    'author' => $author,
-                    'isOwner' => true,
-                    ])
-            </div>
-
         </div>
 
     </div>

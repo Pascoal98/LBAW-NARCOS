@@ -15,6 +15,27 @@ class TopicController extends Controller
         'pending' => 'PENDING'
     ];
 
+    public function show(int $topic_id) {
+
+        $topic = Topic::find($topic_id);
+
+        $articles = $topic->articles()->map(fn ($article) => $article
+        ->only('id', 'title', 'thumbnail', 'body', 'published_date', 'likes', 'dislikes'))
+        ->sortByDesc('published_date');
+
+        return view('partials.post.articles', [
+            'articles' => $articles,
+        ]);
+    }
+
+    public function showAll() {
+
+        $topics = Topic::listTopicsByStatus('ACCEPTED');
+        
+        return view('pages.listTopics', [
+            'topics' => $topics,
+        ]);
+    }
     
     public function accept(int $topic_id)
     {

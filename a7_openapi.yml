@@ -452,6 +452,8 @@ paths:
             enum:
               - "article"
               - "user"
+              - "topic"
+
           required: true
         - in: query
           name: query
@@ -513,9 +515,8 @@ paths:
           description: "feed type"
           schema:
             type: string
-            default: "trending"
+            default: "recent"
             enum:
-              - "trending"
               - "recommended"
               - "recent"
           required: false
@@ -534,23 +535,7 @@ paths:
             type: integer
             minimum: 1
           required: false
-
-      requestBody:
-        required: false
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                topics:
-                  type: array
-                minDate:
-                  type: string
-                  format: date
-                maxDate:
-                  type: string
-                  format: date
-
+          
       responses:
         "200":
           description: "OK. Show filter results"
@@ -1000,7 +985,7 @@ paths:
         "409":
           description: "Conflict. Topic is not a favourite"
 
-  /api/topics/{tag_state}:
+  /topics/{topic_status}:
     get:
       operationId: R506
       summary: "R506: Filter Topics"
@@ -1075,7 +1060,7 @@ paths:
           description: "Bad Request. Failed to propose a new topic"
         "401":
           description: "Unauthorized. Not logged in"
-
+       
 # M07: User Administration
 
   /admin:

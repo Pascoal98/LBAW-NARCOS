@@ -95,7 +95,7 @@ class UserController extends Controller
             'username' => $user->username,
             'email' => $user->email,
             'date_of_birth' => $user->date_of_birth,
-            'isAdmin' => $user->is_admin,
+            'is_admin' => $user->is_admin,
             'avatar' => $user->avatar,
             'is_suspended' => $user->is_suspended,
             'reputation' => $user->reputation,
@@ -104,10 +104,17 @@ class UserController extends Controller
 
         $followerCount = count($user->followers);
 
+        $favoriteTopics = $user->favoriteTopics->map(fn ($topic) => $topic->only('id'));
+
+        $topics = Topic::listTopicsbyStatus(TopicController::topicStatus['accepted'])
+            ->map(fn ($topic) => $topic->only('id', 'subject'));
+
         return view('pages.user.editProfile', [
             'user' => $userInfo,
             'followerCount' => $followerCount,
             'date_of_birth' => date('d-m-Y', strtotime($userInfo['date_of_birth'])),
+            'topics' => $topics,
+            'favoriteTopics' => $favoriteTopics,
         ]);
     }
 
@@ -163,9 +170,26 @@ class UserController extends Controller
             'new_password' => 'nullable|string|min:6|confirmed',
             // Minimum: 12 years old
             'date_of_birth' => 'nullable|string|date_format:Y-m-d|before_or_equal:'.date('Y-m-d', strtotime('-12 years')),
-            'avatar' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:4096', // max 5MB
+            'avatar' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:4096',
+            'favoriteTopics' => 'nullable|array',
+            'favoriteTopics.*' => [
+                'integer',
+                Rule::exists('topic', 'id')->where('status', 'ACCEPTED')
+            ], // max 5MB
         ], ['before_or_equal' => 'You must be at least 12 years old']);
 
+        
+        if ($validator->fails()) {
+            $errors = [];
+            foreach ($validator->errors()->messages() as $key => $value) {
+                if (str_contains($key, 'favoriteTopics'))
+                    $key = 'favoriteTopics';
+                $errors[$key] = is_array($value) ? implode(',', $value) : $value;
+            }
+
+            
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
 
         if (isset($request->username)) $user->username = $request->username;
         if (isset($request->email)) $user->email = $request->email;
@@ -185,6 +209,7 @@ class UserController extends Controller
         }
 
         $user->save();
+        $user->favoriteTopics()->sync($request->favoriteTopics);
 
         return redirect("/user/${id}");
     }

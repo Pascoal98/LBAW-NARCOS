@@ -11,8 +11,7 @@ use Illuminate\Validation\Rule;
 
 class HomeController extends Controller
 {
-
-    private const ARTICLE_LIMIT = 5;
+    private const ARTICLE_LIMIT = 10;
 
     /**
      * Displays the home page
@@ -71,7 +70,8 @@ class HomeController extends Controller
         }
 
         if (isset($request->minDate)) $minTimestamp = strtotime($request->minDate);
-        if (isset($request->maxDate)) $maxTimestamp = strtotime($request->maxDate . '+1 day');
+        if (isset($request->maxDate)) // Allow articles posted in the same day
+        $maxTimestamp = strtotime($request->maxDate . '+1 day');
 
         if (isset($request->minDate) && isset($request->maxDate) && $maxTimestamp < $minTimestamp)
             return response()->json([
@@ -94,20 +94,20 @@ class HomeController extends Controller
 
         if (isset($request->minDate))
             $articles = $articles->filter(function ($article) use ($minTimestamp) {
-                $timestamp = strtotime($article->published_date);
+                $timestamp = strtotime($article->published_at);
                 return $timestamp >= $minTimestamp;
             });
 
         if (isset($request->maxDate))
             $articles = $articles->filter(function ($article) use ($maxTimestamp) {
-                $timestamp = strtotime($article->published_date);
+                $timestamp = strtotime($article->published_at);
                 return $timestamp <= $maxTimestamp;
             });
 
         $results = $this->filterByType($request->type, $request->offset, $request->limit, $articles);
 
         return response()->json([
-            'html' => view('partials.post.articles', [
+            'html' => view('partials.content.articles', [
                 'articles' => $results['articles']
             ])->render(),
             'canLoadMore' => $results['canLoadMore']
@@ -146,7 +146,7 @@ class HomeController extends Controller
         }
 
         else if ($type === 'recent')
-            $sortedArticles = $articles->sortByDesc('published_date');
+            $sortedArticles = $articles->sortByDesc('published_at');
 
         else $sortedArticles = $articles;
 
@@ -163,8 +163,8 @@ class HomeController extends Controller
 
     private function compareArticleDates($a, $b)
     {
-        $d1 = date_create($a->published_date);
-        $d2 = date_create($b->published_date);
+        $d1 = date_create($a->published_at);
+        $d2 = date_create($b->published_at);
 
         $daysDiff = date_diff($d1, $d2)->format("%a");
         if ($daysDiff === "0") return 0;
