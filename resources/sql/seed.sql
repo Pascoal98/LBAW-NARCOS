@@ -120,6 +120,13 @@ CREATE TABLE article_topic(
   PRIMARY KEY(article_id, topic_id)
 );
 
+-----------------------------------------
+
+CREATE TABLE topic_follow(
+  user_id INTEGER REFERENCES authenticated_user(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  topic_id INTEGER REFERENCES topic(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  PRIMARY KEY(user_id, topic_id)
+);
 
 -----------------------------------------
 
@@ -493,7 +500,8 @@ VALUES
   ('admin1', 'admin1@lbaw.com', TO_TIMESTAMP('1998-12-03', 'YYYY-MM-DD'), True, '$2a$12$L1ZZNfOm63yL5kYDYOVv7OUbHodZSAJjgW9b9Z6/GiB4anaR.FLM6', null, False, 666),
   ('admin2', 'admin2@lbaw.com', TO_TIMESTAMP('1998-12-04', 'YYYY-MM-DD'), True, '$2a$12$L1ZZNfOm63yL5kYDYOVv7OUbHodZSAJjgW9b9Z6/GiB4anaR.FLM6', null, False, 999),
   ('suspended1', 'suspended1@lbaw.com', TO_TIMESTAMP('1998-01-01', 'YYYY-MM-DD'), False, '$2a$12$L1ZZNfOm63yL5kYDYOVv7OUbHodZSAJjgW9b9Z6/GiB4anaR.FLM6', null, True, -666),
-  ('suspended2', 'suspended2@lbaw.com', TO_TIMESTAMP('1998-02-02', 'YYYY-MM-DD'), False, '$2a$12$L1ZZNfOm63yL5kYDYOVv7OUbHodZSAJjgW9b9Z6/GiB4anaR.FLM6', null, True, -999);
+  ('suspended2', 'suspended2@lbaw.com', TO_TIMESTAMP('1998-02-02', 'YYYY-MM-DD'), False, '$2a$12$L1ZZNfOm63yL5kYDYOVv7OUbHodZSAJjgW9b9Z6/GiB4anaR.FLM6', null, True, -999),
+  ('npc', 'npc@lbaw.com', TO_TIMESTAMP('1997-02-02', 'YYYY-MM-DD'), False, '$2a$12$L1ZZNfOm63yL5kYDYOVv7OUbHodZSAJjgW9b9Z6/GiB4anaR.FLM6', null, False, 404);
 
 INSERT INTO suspension (reason, start_time, end_time, admin_id, user_id)
 VALUES
@@ -585,3 +593,9 @@ VALUES
     (2,5),
     (3,2),
     (4,8);
+
+INSERT INTO topic_follow(user_id, topic_id)
+VALUES
+  (1,1),
+  (1,2),
+  (17,1);
