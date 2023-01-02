@@ -37,8 +37,8 @@
  input[type="button"],
  input[type="reset"],
  input[type="submit"] {
-     background-color: #9b4dca;
-     border: 0.1rem solid #9b4dca;
+     background-color: #ffa600;
+     border: 0.1rem solid #000000;
      border-radius: 0.4rem;
      color: #fff;
      cursor: pointer;
@@ -82,8 +82,8 @@
  input[type="reset"][disabled]:hover,
  input[type="submit"][disabled]:focus,
  input[type="submit"][disabled]:hover {
-     background-color: #9b4dca;
-     border-color: #9b4dca;
+     background-color: #ffa600;
+     border-color: #ffa600;
  }
  .button.button-outline,
  button.button-outline,
@@ -91,7 +91,7 @@
  input[type="reset"].button-outline,
  input[type="submit"].button-outline {
      background-color: transparent;
-     color: #9b4dca;
+     color: #ffa600;
  }
  .button.button-outline:focus,
  .button.button-outline:hover,
@@ -118,7 +118,7 @@
  input[type="submit"].button-outline[disabled]:focus,
  input[type="submit"].button-outline[disabled]:hover {
      border-color: inherit;
-     color: #9b4dca;
+     color: #ffa600;
  }
  .button.button-clear,
  button.button-clear,
@@ -127,7 +127,7 @@
  input[type="submit"].button-clear {
      background-color: transparent;
      border-color: transparent;
-     color: #9b4dca;
+     color: #ffa600;
  }
  .button.button-clear:focus,
  .button.button-clear:hover,
@@ -153,7 +153,7 @@
  input[type="reset"].button-clear[disabled]:hover,
  input[type="submit"].button-clear[disabled]:focus,
  input[type="submit"].button-clear[disabled]:hover {
-     color: #9b4dca;
+     color: #ffa600;
  }
  code {
      background: #f4f5f6;
@@ -165,7 +165,7 @@
  }
  pre {
      background: #f4f5f6;
-     border-left: 0.3rem solid #9b4dca;
+     border-left: 0.3rem solid #ffa600;
      overflow-y: hidden;
  }
  pre > code {
@@ -209,7 +209,7 @@
  input[type="url"]:focus,
  textarea:focus,
  select:focus {
-     border-color: #9b4dca;
+     border-color: #ffa600;
      outline: 0;
  }
  select {
@@ -218,7 +218,7 @@
      padding-right: 3rem;
  }
  select:focus {
-     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#9b4dca" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>');
+     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 29 14" width="29"><path fill="#ffa600" d="M9.37727 3.625l5.08154 6.93523L19.54036 3.625"/></svg>');
  }
  textarea {
      min-height: 6.5rem;
@@ -384,7 +384,7 @@
      }
  }
  a {
-     color: #9b4dca;
+     color: #ffa600;
      text-decoration: none;
  }
  a:focus,
