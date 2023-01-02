@@ -76,29 +76,29 @@
 
                     @else
                         @if ( $liked )
-                            <i class="fas fa-thumbs-up ps-4 purpleLink feedbackIcon" 
-                                id="articleLikes"
+                            <i class="fas fa-thumbs-up ps-5 purpleLink feedbackIcon"
                                 data-bs-toggle="tooltip" data-bs-placement="bottom" title="Like"
                                 onclick="removeFeedback(this, {{ $article['id'] }}, true, false)"
                                 > 
                                 <span class="ms-1">{{ $article['likes'] }}</span>
                             </i>
                         @else 
-                            <i class="fas fa-thumbs-up ps-5 feedbackIcon" id="articleLikes"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Like"
-                            onclick="giveFeedback(this, {{ $article['id'] }}, true, false)"> 
+                            <i class="fas fa-thumbs-up ps-5 purpleLink feedbackIcon" 
+                                id="articleLikes"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Like"
+                                onclick="giveFeedback(this, {{ $article['id'] }}, true, false)"> 
                                 <span class="ms-1">{{ $article['likes'] }}</span>
                             </i>
                         @endif
 
                         @if ($disliked)
-                            <i class="fas fa-thumbs-down ps-3 feedbackIcon purpleLink" id="articleDislikes"
+                            <i class="fas fa-thumbs-down ps-3 purpleLink feedbackIcon" id="articleDislikes"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dislike"
                             onclick="removeFeedback(this, {{ $article['id'] }}, false, false)"> 
                                 <span class="ms-1">{{ $article['dislikes'] }}</span>
                             </i>
                         @else
-                            <i class="fas fa-thumbs-down ps-3 feedbackIcon" id="articleDislikes"
+                            <i class="fas fa-thumbs-down ps-3 purpleLink feedbackIcon" id="articleDislikes"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dislike"
                             onclick="giveFeedback(this, {{ $article['id'] }}, false, false)"> 
                                 <span class="ms-1">{{ $article['dislikes'] }}<span>

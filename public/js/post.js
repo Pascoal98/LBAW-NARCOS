@@ -8,6 +8,7 @@ removeFeedback = (elem, post_id, is_like, is_comment) => {
     sendAjaxRequest('delete', url, { is_like }, removeFeedbackHandler(elem, post_id, is_like, is_comment));
 }
 
+
 const giveFeedbackHandler = (elem, post_id, is_like, is_comment) => function() {
     if (this.status == 403) {
         window.location = '/login';
@@ -30,6 +31,8 @@ const giveFeedbackHandler = (elem, post_id, is_like, is_comment) => function() {
 
     elem.classList.add("purpleLink");
     elem.onclick = () => removeFeedback(elem, post_id, is_like, is_comment);
+
+
 
     const counter = elem.lastElementChild;
     counter.innerHTML = is_like ? JSON.parse(this.responseText).likes : JSON.parse(this.responseText).dislikes;
@@ -77,7 +80,7 @@ const removeFeedbackHandler = (elem, post_id, is_like, is_comment) => function()
 }
 
 const likeClasses = is_comment => is_comment ? 
-    ["fa fa-thumbs-up feedbackIconDislike"] : ["fas fa-thumbs-up ps-5 feedbackIconLike"];
+    ["fa fa-thumbs-up feedbackIcon"] : ["fas fa-thumbs-up ps-5 feedbackIcon"];
 
 const dislikeClasses = is_comment => is_comment ? 
-    ["fa fa-thumbs-down ps-3 pe-3 feedbackIconLike"] : ["fas fa-thumbs-down ps-3 feedbackIconDislike"];
+    ["fa fa-thumbs-down ps-3 pe-3 feedbackIcon"] : ["fas fa-thumbs-down ps-3 feedbackIcon"];

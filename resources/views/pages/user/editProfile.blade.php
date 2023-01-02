@@ -52,17 +52,6 @@ $isOpen = $errors->has('password');
                                 </div>
                             @endif
                         </div>
-                        <div class="col-6">
-                            <label class="h2 pb-3 my-0" for="date_of_birth_Input">Birth Date</label>
-                            <input name="birthDatePicker" class="h3 editInputs py-4 px-2 px-lg-3" type="text" placeholder="Enter Date of Birth" required
-                                value="{{ old('date_of_birth') ? old('date_of_birth') : $date_of_birth }}">
-                            <input name="date_of_birth" type="hidden" value="{{ old('date_of_birth') }}" id="date_of_birth_Input">
-                            @if ($errors->has('date_of_birth'))
-                                <div class="text-danger w-100 py-1">
-                                    <p class="">{{ $errors->first('date_of_birth') }}</p>
-                                </div>
-                            @endif
-                        </div>
                     </div>
                     <div class="col-12 col-lg-4 mt-3 mt-lg-0">
                     <label class="h2 mb-3" for="topicsInput">Favorite Topics</label>

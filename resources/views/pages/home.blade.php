@@ -46,7 +46,7 @@
                     </option>
                 @endforeach
             </select>
-            <i class="fa fa-feed filter-tag mx-4 text-lightRed my-auto"></i>
+            <i class="fa fa-feed filter-tag mx-4 my-auto"></i>
         </div>
 </section>
 @endsection
@@ -71,15 +71,15 @@
     <section class="home-section d-flex flex-column align-items-center mt-5 bg-secondary">
         <div class="d-flex flex-grow-1 justify-content-center home-container">
             <div id="propose_Topic" class="position-relative d-flex flex-column align-items-center">
-                <h1 class="mb-2">
+                <h3 class="mb-2 text-light">
                     Propose a new Topic
-                </h1>
+                </h3>
                 <h4 class="mb-5 text-light"> Let us know what new topic you want to add!</h4>
 
                 <form id="proposeTopicForm" class="d-flex flex-row mb-0" onsubmit="proposeTopic(event)">
-                    <input id="topic-name" class="customInput" type="text" name="topicName" placeholder="Enter your topic" required>
+                    <input id="topic-name" class="customInput" type="text" name="topicName" placeholder="Submit Topic" required>
 
-                    <button class="btn btn-purple btn-lg customBtn ms-4" type="submit"> Propose </button>
+                    <button class="btn btn-orange btn-lg customBtn ms-4" type="submit"> Propose </button>
                 </form>
             </div>
         </div>

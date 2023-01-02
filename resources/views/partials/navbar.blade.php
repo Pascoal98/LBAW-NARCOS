@@ -1,6 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbarContainer">
     <h1><a href="{{ url('/') }}">NARCOS</a></h1>
+    
         <button class="navbar-toggler m-0" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">

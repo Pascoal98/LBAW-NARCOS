@@ -25,14 +25,9 @@ option {
 
 /* Navbar */
 
-#logo {
-  font-family: monospace;
-  font-size: 2.8em;
-  letter-spacing: 3px;
-  color: var(--bs-orange);
-}
-
 #searchForm {
+  margin-right: auto;
+  margin-left: auto;
   border-radius: 2em 1em 1em 2em;
   position: relative;
   top: 0.6em;
@@ -99,7 +94,17 @@ option {
 }
 
 
+/* Authentication */
+#registerContainer {
+  width: 50%;
+}
+#loginContainer {
+  width: 25%;
+}
 
+#loginContainer .loginBtn {
+  width: 50%;
+}
 
 
 /* HomePage */
@@ -111,11 +116,6 @@ option {
 
 #filterSection {
   width: 70%;
-  margin: auto;
-}
-
-#filterSectionMobile {
-  width: 85%;
   margin: auto;
 }
 
@@ -142,7 +142,7 @@ option {
   background-color: rgba(52, 152, 219, 0.2);
 }
 
-.filter-tag {
+.filter-topic {
   font-size: 2em;
 }
 
@@ -156,7 +156,6 @@ option {
   padding: 0;
 }
 
-/* Partial Article, just putting here for now then we change */
 #articles .card {
   height: 20vh;
   min-height: 11em;
@@ -176,7 +175,6 @@ option {
 }
 
 #articles .card:hover {
-  /* background-color: var(--dark); */
   border: 2px solid var(--bs-white);
 }
 
@@ -202,29 +200,6 @@ option {
 
 #load-more {
   text-align: center;
-}
-
-/* Partial Author Information */
-#authorDetails {
-  height: 40%;
-  color: white;
-}
-
-#authorDetails h4 {
-  font-weight: normal;
-  color: var(--bs-orange);
-}
-
-#authorDetails h4:hover {
-  filter: brightness(1.25);
-}
-
-#authorDescription {
-  height: 20%;
-}
-
-#authorAreaExpertise {
-  height: 40%;
 }
 
 /* Full Article Page */
@@ -255,33 +230,9 @@ option {
   height: 100%;
 }
 
-.articleInfoContainer #publishedAt {
+.articleInfoContainer #publishedDate {
   font-size: 1.2em;
   width: 25%;
-}
-
-.articleInfoContainer #articleImg {
-  max-width: 60%;
-}
-
-.author-container {
-  background-color: var(--bs-gray-700);
-  width: 30%;
-  max-height: 50em;
-  border: 2px solid var(--bs-gray-600);
-}
-
-.author-container .row {
-  margin-left: 0.1rem;
-}
-
-.author-container p {
-  margin: 0;
-}
-
-.author-container #authorAvatar {
-  border-radius: 50%;
-  aspect-ratio: 1 / 1;
 }
 
 #comments-section #articleCommentsContainer {
@@ -324,20 +275,17 @@ option {
 }
 
 /* Forms Errors */
-
 .error-container {
   height: 10%;
 }
 
 /* Article Form */
-
 .article-form {
   position: relative;
   min-height: 70vh;
 }
 
-/* Select2 Tags */
-
+/* Select2 Topics */
 .select2-selection--multiple {
   background-color: transparent !important;
   border-color: var(--bs-light) !important;
@@ -389,17 +337,11 @@ option {
   border-radius: 100em;
 }
 
-#userInfo #profileRepContainer {
-  width: 25%;
-  min-width: 12.5em;
-}
-
 #userProfileContainer #userArticles #articlesTitle {
   width: 20%;
 }
 
 /* Alerts */
-
 .alert-custom {
   background-color: var(--bs-red);
 }
@@ -410,13 +352,11 @@ option {
 }
 
 /* Badges */
-
 .bg-custom {
-  background-color: var(--bs-yellow);
+  background-color: var(--bs-black);
 }
 
 /* User Cards */
-
 .user-card {
   border-color: var(--bs-gray-600);
   max-height: 25rem;
@@ -430,10 +370,6 @@ option {
 
 .user-card-body {
   width: 60%;
-}
-
-.user-card-location {
-  font-size: 0.9em;
 }
 
 .user-card-right {
@@ -505,7 +441,6 @@ option {
   pointer-events: none;
 }
 
-
 #editProfileContainer #favTopicsBtn {
   right: 35vw;
   top: 20vh;
@@ -562,7 +497,7 @@ option {
   transform: translate(-50%, -50%);
 }
 
-/* Tags Managment */
+/* Topic Managment */
 .statusContainer {
   background-color: var(--bs-gray-900);
 }
@@ -607,13 +542,13 @@ option {
 
 /* Content */
 
-.feedbackIconLike:hover {
-  color: var(--bs-green);
-  cursor: pointer;
+.feedbackIcon {
+  color: var(--bs-light);
 }
 
-.feedbackIconDislike:hover {
-  color: var(--bs-red);
+
+.feedbackIcon:hover {
+  color: var(--bs-yellow);
   cursor: pointer;
 }
 
