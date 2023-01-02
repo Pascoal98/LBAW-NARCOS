@@ -219,7 +219,7 @@ class AdminController extends Controller
             ->map(function ($report) {
 
                 $reportedInfo = $report->reported_id
-                    ->only('id', 'name', 'avatar', 'country', 'is_admin', 'is_suspended');
+                    ->only('id', 'name', 'avatar', 'is_admin', 'is_suspended');
 
                 if (isset($report->reporter_id))
                     $reporterInfo = $report->reporter_id->only('id', 'name');

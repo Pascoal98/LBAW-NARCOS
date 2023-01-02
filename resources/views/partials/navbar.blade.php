@@ -35,7 +35,17 @@
                         </li>
                     </ul>
                 </div>
+                
             </form>
+            
+        </div>           
+           
+ 
+        <div id="dropdownContainer" class="nav-item dropdown ms-5">
+            <a class="dropdown-item dropdown-custom-item"
+                 href="{{ url('/admin') }}">Admin Panel
+            </a>    
         </div>
+
     </nav>
 </header>
