@@ -45,4 +45,20 @@ class LoginController extends Controller
         return redirect('login');
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->is_suspended) {
+            Auth::logout();
+            $suspension = $user->suspensionEndInfo();
+
+            return back()->withErrors([
+                'suspended' => 'Your account has been suspended by an administrator',
+                'reason' => $suspension['reason'],
+                'endDate' => $suspension['end_date']
+            ]);
+        }
+
+        return redirect()->intended($this->redirectPath());
+    }
+
 }

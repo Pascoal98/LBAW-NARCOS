@@ -31,9 +31,7 @@
                 
             </form>
             
-        </div>         
-        
-        
+        </div> 
            
         @if (Auth::check())
             @if (Auth::user()->is_admin)

@@ -13,9 +13,6 @@ class AdminPolicy
 
     /**
      * Determine whether the user can view the admin panel.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
     public function show(User $user)
     {
@@ -24,29 +21,14 @@ class AdminPolicy
 
     /**
      * Determine whether the user can view the list of suspended users.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
     public function suspensions(User $user)
     {
         return $user->is_admin;
     }
 
-    public function unsuspendUser(User $user) {
-        return Auth::user()->is_admin;
-    }
-
-
-    public function suspendUser(User $user) {
-        return Auth::user()->is_admin;
-    }
-
     /**
      * Determine whether the user can view the list of reports.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
     public function reports(User $user)
     {
@@ -55,9 +37,6 @@ class AdminPolicy
 
     /**
      * Determine whether the user can manage t.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
     public function topics(User $user)
     {
@@ -66,9 +45,6 @@ class AdminPolicy
 
     /**
      * Determine whether the user can close reports.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
      */
     public function closeReport(User $user, Report $report)
     {
