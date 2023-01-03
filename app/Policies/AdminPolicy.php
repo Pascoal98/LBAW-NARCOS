@@ -27,6 +27,16 @@ class AdminPolicy
         return $user->is_admin;
     }
 
+    public function unsuspendUser(User $user) {
+        return Auth::user()->is_admin;
+    }
+
+
+    public function suspendUser(User $user) {
+        return Auth::user()->is_admin;
+    }
+
+
     /**
      * Determine whether the user can view the list of reports.
      */

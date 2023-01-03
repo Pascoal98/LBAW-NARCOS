@@ -101,8 +101,7 @@ $guest = !Auth::check();
 
 
 @section('report')
-<div onclick="report()"></div>
-        <div class="d-flex flex-column align-items-center justify-content-center">
+<div class="d-flex flex-column align-items-center justify-content-center">
             <div id="reportInsideContainer" class="d-flex flex-column align-items-center justify-content-evenly">
                 <h3 class="mt-4 mt-lg-0">Give us a reason to report this user</h3>
                 <div class="text-danger d-flex d-none py-0 my-0 align-items-center text-center px-5" id="reportError">
@@ -115,7 +114,8 @@ $guest = !Auth::check();
                     <button class="btn btn-purple btn-lg customBtn">Submit</button>
                 </form>
             </div>
-        </div>
+</div>
+
 @endsection
 
 @section('content')

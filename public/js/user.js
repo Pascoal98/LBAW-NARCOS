@@ -15,7 +15,7 @@ const unfollowUser = (id) => {
 }
 
 const reportUser = (id) => {
-    const reportReason = select('textarea[id=reason]').value;
+    const reportReason = select('input[id=reason]').value;
     sendAjaxRequest('post', `/user/${id}/report`, {reason: reportReason}, reportUserHandler);
 }
 
@@ -55,7 +55,7 @@ function unfollowUserHandler() {
     }
 }
 
-const report = () => {
+const toggleReportPopup = () => {
     
     const reportContainer = select('#reportElement');
     
@@ -71,7 +71,6 @@ const report = () => {
 function reportUserHandler() {
     const res = JSON.parse(this.responseText);
     if (res.status == 'OK') {
-        report();
         const confirmation = document.createElement('h4');
         confirmation.classList.add('mb-0');
         confirmation.innerHTML = 'Thank you for your contribution!';
