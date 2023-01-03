@@ -119,7 +119,7 @@ class SearchController extends Controller
         $rawArticles = $rawArticles->take($limit);
 
         $articles = $rawArticles->map(fn ($article) => $article
-            ->only('id', 'title', 'thumbnail', 'body', 'published_date', 'likes', 'dislikes'));
+            ->only('id', 'title', 'thumbnail', 'body', 'published_date', 'likes', 'dislikes', 'author'));
 
         return [
             'results' => $articles,
