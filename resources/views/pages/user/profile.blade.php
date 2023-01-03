@@ -66,6 +66,7 @@ $guest = !Auth::check();
             </div>
         </div>
     </section>
+
 @endsection
 
 {{-- ------------------------------------------------------------------------------------ --}}
@@ -98,12 +99,34 @@ $guest = !Auth::check();
 
 {{-- ------------------------------------------------------------------------------------ --}}
 
+
+@section('report')
+<div onclick="report()"></div>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <div id="reportInsideContainer" class="d-flex flex-column align-items-center justify-content-evenly">
+                <h3 class="mt-4 mt-lg-0">Give us a reason to report this user</h3>
+                <div class="text-danger d-flex d-none py-0 my-0 align-items-center text-center px-5" id="reportError">
+                    <i class="fa fa-exclamation me-3 fa-1x"></i>
+                    <h5 class="py-0 my-0" id="reportErrorText"></h5>
+                </div>
+                <form id="reportform" class="d-flex flex-row mb-0" onsubmit="reportUser({{ $user['id'] }})">
+                    <input id="reason" class="customInput" type="text" name="reason" placeholder="Insert report reason here" required>
+
+                    <button class="btn btn-purple btn-lg customBtn">Submit</button>
+                </form>
+            </div>
+        </div>
+@endsection
+
 @section('content')
     <div id="userProfileContainer" class="d-flex flex-column">
         @yield('userInfo')
         @yield('articles')
         @if ($canLoadMore)
             @yield('load-more')
+
         @endif
+        @yield('report')
+
     </div>
 @endsection

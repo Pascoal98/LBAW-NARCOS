@@ -14,6 +14,10 @@ const unfollowUser = (id) => {
     sendAjaxRequest('post', `/user/${id}/unfollow`, null, unfollowUserHandler);
 }
 
+const reportUser = (id) => {
+    const reportReason = select('textarea[id=reason]').value;
+    sendAjaxRequest('post', `/user/${id}/report`, {reason: reportReason}, reportUserHandler);
+}
 
 const shortcutFollowHandler = (elem) => function () {
     const res = JSON.parse(this.responseText);
@@ -51,7 +55,7 @@ function unfollowUserHandler() {
     }
 }
 
-const toggleReportPopup = () => {
+const report = () => {
     
     const reportContainer = select('#reportElement');
     
@@ -64,15 +68,14 @@ const toggleReportPopup = () => {
     toggleElem(reportContainer);
 }
 
-const reportUser = (id) => {
-    const reportReason = select('textarea[id=reason]').value;
-    sendAjaxRequest('post', `/user/${id}/report`, {reason: reportReason}, reportUserHandler);
-}
-
 function reportUserHandler() {
     const res = JSON.parse(this.responseText);
     if (res.status == 'OK') {
-        toggleReportPopup();
+        report();
+        const confirmation = document.createElement('h4');
+        confirmation.classList.add('mb-0');
+        confirmation.innerHTML = 'Thank you for your contribution!';
+        select('#reportform').replaceWith(confirmation);
     } else if (res.msg){
         const errorContainer = select('#reportError');
         select('#reportErrorText').innerHTML = res.msg;
