@@ -190,7 +190,7 @@ class UserController extends Controller
             'favoriteTopics.*' => [
                 'integer',
                 Rule::exists('topic', 'id')->where('status', 'ACCEPTED')
-            ], // max 5MB
+            ],
         ], ['before_or_equal' => 'You must be at least 12 years old']);
 
         

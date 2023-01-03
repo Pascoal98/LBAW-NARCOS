@@ -614,7 +614,22 @@ paths:
         "404":
           description: "Article not found"
 
-    delete:
+      responses:
+        "302":
+          description: "Redirect after processing the create article form."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful article creation. Redirect to Article Page."
+                  value: "/article/{id}"
+                302Failure:
+                  description: "Failed article creation. Redirect to Create Article form."
+                  value: "/article"
+
+      delete:
       operationId: R308
       summary: "R308 : Delete article action"
       description: "Processes a request to delete an article. Access: OWN, ADM"
@@ -642,22 +657,6 @@ paths:
                 302Failure:
                   description: "Failed to delete article. Redirect to article page"
                   value: "/article/{id}"
-
-
-      responses:
-        "302":
-          description: "Redirect after processing the create article form."
-          headers:
-            Location:
-              schema:
-                type: string
-              examples:
-                302Success:
-                  description: "Successful article creation. Redirect to Article Page."
-                  value: "/article/{id}"
-                302Failure:
-                  description: "Failed article creation. Redirect to Create Article form."
-                  value: "/article"
 
 
 /article/{id}/edit:
