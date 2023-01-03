@@ -12,16 +12,22 @@
 
 @section('filters')
     <section>
-        <div id="filterSection" class="d-none d-lg-flex flex-row align-items-center border border-light rounded-pill py-4 px-2 mt-3 mb-4 overflow-hidden">
+        <div id="filterSection" class="d-none d-lg-flex flex-row align-items-center border border-light py-4 px-2 mt-3 mb-4 overflow-hidden">
             @if (Auth::check())
                 <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create an Article"
                     for="createArticleIcon">
                         <a id="createArticleIcon" class="nav-item mx-4" href="{{ route('createArticle') }}">
-                            <i class="purpleLink fas fa-plus-circle fa-3x"></i>
+                            <i class="purpleLink fa fa-plus-square  fa-3x"></i>
                         </a>
                 </label>
             @endif
             <div class="btn-group btn-group-toggle me-auto" data-toggle="buttons">
+                <input type="radio" class="btn-check" name="filterType" id="recent" autocomplete="off">
+                <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="The latest articles"
+                    class="filter-button btn btn-outline-info text-light btn-lg ms-4 my-auto" for="recent">
+                    <i class="fas fa-history mt-2 text-info"></i> 
+                    <span class="mx-2">Recent</span>
+                </label>
                 @if (Auth::check())
                     <input type="radio" class="btn-check" name="filterType" id="recommended" autocomplete="off" checked>
                     <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="From your favorite authors and topics"
@@ -30,13 +36,6 @@
                     <span class="mx-2">Recommended</span>
                     </label>
                 @endif
-
-                <input type="radio" class="btn-check" name="filterType" id="recent" autocomplete="off">
-                <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="The latest articles"
-                    class="filter-button btn btn-outline-info text-light btn-lg ms-4 my-auto" for="recent">
-                    <i class="fas fa-history mt-2 text-info"></i> 
-                    <span class="mx-2">Recent</span>
-                </label>
             </div>
             <select id="filterTopics" multiple>
                 @foreach($topics as $topic)

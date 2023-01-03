@@ -19,9 +19,8 @@ tags:
   - name: "M03: Articles"
   - name: "M04: Comments"
   - name: "M05: Topics"
-  - name: "M06: Messages and Notifications"
-  - name: "M07: User Administration"
-  - name: "M08: Static Pages"
+  - name: "M06: User Administration"
+  - name: "M07: Static Pages"
 
 paths:
   # M01: Authentication
@@ -1061,15 +1060,15 @@ paths:
         "401":
           description: "Unauthorized. Not logged in"
        
-# M07: User Administration
+# M06: User Administration
 
   /admin:
     get:
-      operationId: "R701"
-      summary: "R701: Administration Panel"
+      operationId: "R601"
+      summary: "R601: Administration Panel"
       description: "Administration Central Page. Access: ADM"
       tags:
-        - "M07: User Administration"
+        - "M06: User Administration"
 
       responses:
         "200":
@@ -1085,11 +1084,11 @@ paths:
 
   /admin/suspensions:
     get:
-      operationId: "R702"
-      summary: "R702: View suspended users and suspension history"
+      operationId: "R602"
+      summary: "R602: View suspended users and suspension history"
       description: "Page with information about suspensions. Access: ADM"
       tags:
-        - "M07: User Administration"
+        - "M06: User Administration"
 
       responses:
         "200":
@@ -1105,11 +1104,11 @@ paths:
 
   /user/{user_id}/suspend:
     post:
-      operationId: "R703"
-      summary: "R703: Suspend User"
+      operationId: "R603"
+      summary: "R603: Suspend User"
       description: "Processes a suspension made on a user. Access: ADM"
       tags:
-        - "M07: User Administration"
+        - "M06: User Administration"
 
       parameters:
         - in: path
@@ -1148,11 +1147,11 @@ paths:
 
   /user/{user_id}/unsuspend:
     put:
-      operationId: "R704"
-      summary: "R704: Unsuspend User"
+      operationId: "R604"
+      summary: "R604: Unsuspend User"
       description: "Processes the unsuspension of an user. Access: ADM"
       tags:
-        - "M07: User Administration"
+        - "M06: User Administration"
 
       parameters:
         - in: path
@@ -1173,11 +1172,11 @@ paths:
 
   /admin/reports:
     get:
-      operationId: "R705"
-      summary: "R705: View all the reports"
+      operationId: "R605"
+      summary: "R605: View all the reports"
       description: "Page with information about all the reports. Access: ADM"
       tags:
-        - "M07: User Administration"
+        - "M06: User Administration"
 
       responses:
         "200":
@@ -1191,11 +1190,11 @@ paths:
 
   /admin/reports/{report_id}/close:
     put:
-      operationId: "R706"
-      summary: "R706: Close a report"
+      operationId: "R606"
+      summary: "R606: Close a report"
       description: "Processes a report and closes it"
       tags:
-        - "M07: User Administration"
+        - "M06: User Administration"
 
       parameters:
         - in: path
@@ -1210,11 +1209,11 @@ paths:
 
   /admin/topics:
     get:
-      operationId: "R707"
-      summary: "R707: Manage Topics"
+      operationId: "R607"
+      summary: "R607: Manage Topics"
       description: "Page to manage the topics of the system. Access: ADM"
       tags:
-        - "M07: User Administration"
+        - "M06: User Administration"
 
       responses:
         "200":
@@ -1227,15 +1226,15 @@ paths:
           description: "Not found"
 
 
-  # M08 : Static Pages
+  # M07 : Static Pages
 
   /about:
     get:
-      operationId: "R801"
-      summary: "R801: About Page"
+      operationId: "R701"
+      summary: "R701: About Page"
       description: "Page with information about us. Access: PUB"
       tag:
-        - "M08: Static Pages"
+        - "M07: Static Pages"
 
       responses:
         "200":
@@ -1243,11 +1242,11 @@ paths:
 
   /faq:
     get:
-      operationId: "R802"
-      summary: "R802: Frequently Asked Questions"
+      operationId: "R702"
+      summary: "R702: Frequently Asked Questions"
       description: "Page with the most frequent asked question. Access: PUB"
       tag:
-        - "M08: Static Pages"
+        - "M07: Static Pages"
 
       responses:
         "200":

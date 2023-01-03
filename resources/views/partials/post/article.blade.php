@@ -15,6 +15,7 @@
             </h4>
 
             <span class="card-text"> 
+                <i class="fa fa-user"> Author: {{$article['author']['username']}}</i>
                 <i class="far fa-clock pe-2"> 
                     @php
                         $time = date('F j, Y', /*, g:i a',*/ strtotime( $article['published_date'] ) )
@@ -25,10 +26,6 @@
                 <i class="fa fa-thumbs-up ms-3 me-2"> Likes: {{ $article['likes'] }}</i>
                 <i class="fa fa-thumbs-down"> Dislikes: {{ $article['dislikes'] }}</i>
             </span>
-
-            <p class="card-text text-light-white text-wrap overflow-hidden h-100">
-                {!! mb_strimwidth(str_replace("&nbsp;", " ", strip_tags($article['body'])), 0, 500, "...") !!}
-            </p>
         </div>
     </a>
     

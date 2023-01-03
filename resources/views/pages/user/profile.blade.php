@@ -35,7 +35,7 @@ $guest = !Auth::check();
                                 Followed Users
                             </button>
                         </form>
-                        <p class="user-card-description mt-4 mb-4">Reputation: {{ $user['reputation'] }}</p>
+                        
                     @else
                         @if (!$guest)
                             @if ($follows)
@@ -47,6 +47,7 @@ $guest = !Auth::check();
                             @endif
                         @endif
                     @endif
+                    <p class="user-card-description mt-4 mb-4">Reputation: {{ $user['reputation'] }}</p>
 
                     <i class="fa fa-users font-2x mx-3 text-primary"
                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Follower Count"></i>

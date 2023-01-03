@@ -44,7 +44,7 @@ class UserController extends Controller
         $followerCount = count($user->followers);
 
         $articles = $user->articles()->map(fn ($article) => $article
-            ->only('id', 'title', 'thumbnail', 'body', 'published_date', 'likes', 'dislikes'))
+            ->only('id', 'title', 'thumbnail', 'body', 'published_date', 'likes', 'dislikes', 'author'))
             ->sortByDesc('published_date');
 
         $canLoadMore = count($articles) > $this::USER_ARTICLES_LIMIT;

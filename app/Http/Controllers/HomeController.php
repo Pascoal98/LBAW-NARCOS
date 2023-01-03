@@ -20,7 +20,7 @@ class HomeController extends Controller
      */
     public function show()
     {
-        $type = Auth::check() ? 'recommended' : 'trending';
+        $type = Auth::check() ? 'recent' : 'recent';
         $results = $this->filterByType($type, 0, $this::ARTICLE_LIMIT);
 
         $topics = Topic::listTopicsByStatus('ACCEPTED')->map(fn ($topic) => $topic->only('id', 'subject'));
@@ -41,7 +41,7 @@ class HomeController extends Controller
     public function filter(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'type' => ['nullable', 'string', Rule::in(['trending', 'recent', 'recommended'])],
+            'type' => ['nullable', 'string', Rule::in(['recent', 'recommended'])],
             'topics' => 'nullable|array',
             'topics.*' => [
                 'integer',
@@ -70,8 +70,7 @@ class HomeController extends Controller
         }
 
         if (isset($request->minDate)) $minTimestamp = strtotime($request->minDate);
-        if (isset($request->maxDate)) // Allow articles posted in the same day
-        $maxTimestamp = strtotime($request->maxDate . '+1 day');
+        if (isset($request->maxDate)) $maxTimestamp = strtotime($request->maxDate . '+1 day');
 
         if (isset($request->minDate) && isset($request->maxDate) && $maxTimestamp < $minTimestamp)
             return response()->json([
@@ -114,21 +113,13 @@ class HomeController extends Controller
         ], 200);
     }
 
-    private function filterByType($type = 'trending', $offset = 0, $limit = null, $articles = null)
+    private function filterByType($type = 'recent', $offset = 0, $limit = null, $articles = null)
     {
         if (is_null($articles))
             $articles = Article::lazy();
 
-        // Sort by top posts of the day
-        if ($type === 'trending' || ($type === 'recommended' && Auth::guest()))
-        {
-            $sortedArticles = $articles->sortBy([
-                fn ($a, $b) => $this->compareArticleDates($a, $b),
-                fn ($a, $b) => $this->compareArticleFeedback($a, $b)
-            ]);
-        }
-
-        else if ($type === 'recommended')
+        
+        if ($type === 'recommended')
         {
             $sortedArticles = $articles->sortBy([
                 function ($a, $b) {
@@ -145,15 +136,13 @@ class HomeController extends Controller
             ]);
         }
 
-        else if ($type === 'recent')
+        else
             $sortedArticles = $articles->sortByDesc('published_date');
-
-        else $sortedArticles = $articles;
 
         $sortedArticles = $sortedArticles->skip($offset);
         $canLoadMore = is_null($limit) ? false : $sortedArticles->count() > $limit;
         $results = $sortedArticles->take($limit)->map(fn ($article) => $article
-            ->only('id', 'title', 'thumbnail', 'body', 'published_date', 'likes', 'dislikes'));
+            ->only('id', 'title', 'thumbnail', 'body', 'published_date', 'likes', 'dislikes', 'author'));
 
         return [
             'articles' => $results,
