@@ -33,8 +33,8 @@
       <label for="password-confirm">Confirm Password</label>
       <input id="password-confirm" type="password" name="password_confirmation" placeholder="Confirm Password" required>
 
-      <label for="date_of_birth">Date of birth</label>
-      <input id="date_of_birth" type="text" name="date_of_birth" placeholder="Confirm Password" required>
+      <label for="date_of_birth">Birth Date</label>
+      <input id="date_of_birth" type="text" name="date_of_birth" placeholder="Enter Birth Date" required>
       @if ($errors->has('date_of_birth'))
         <span class="error">
             {{ $errors->first('date_of_birth') }}
