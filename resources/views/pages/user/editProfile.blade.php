@@ -8,7 +8,6 @@ $isOpen = $errors->has('password');
 
 @section('scripts')
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
@@ -57,7 +56,7 @@ $isOpen = $errors->has('password');
 
                     <select id="favoriteTopics" name="favoriteTopics[]" multiple>
                         @foreach ($topics as $topic)
-                            <option class="m-0" @if (old('favoriteTopics') ? in_array($topic['id'], old('favoriteTopics')) : $favoriteTopics->contains('id', $topic['id']))
+                            <option class="m-10" @if (old('favoriteTopics') ? in_array($topic['id'], old('favoriteTopics')) : $favoriteTopics->contains('id', $topic['id']))
                                 selected
                         @endif
                         value="{{ $topic['id'] }}">{{ $topic['subject'] }}</option>

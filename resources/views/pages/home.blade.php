@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('scripts')
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -12,7 +11,7 @@
 
 @section('filters')
     <section>
-        <div id="filterSection" class="d-none d-lg-flex flex-row align-items-center border border-light py-4 px-2 mt-3 mb-4 overflow-hidden">
+        <div id="filterSection" class="d-none d-lg-flex flex-row align-items-center py-4 px-2 mt-3 mb-4 overflow-hidden">
             @if (Auth::check())
                 <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="Create an Article"
                     for="createArticleIcon">
@@ -37,14 +36,6 @@
                     </label>
                 @endif
             </div>
-            <select id="filterTopics" multiple>
-                @foreach($topics as $topic)
-                    <option value="{{ $topic['id'] }}">
-                        {{ $topic['subject'] }}
-                    </option>
-                @endforeach
-            </select>
-            <i class="fa fa-feed filter-tag mx-4 my-auto"></i>
         </div>
 </section>
 @endsection
