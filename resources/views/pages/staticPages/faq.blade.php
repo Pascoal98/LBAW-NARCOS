@@ -13,21 +13,25 @@
         <div class="accordion text-center" id="faqAccordion">
             <div class="accordion-item my-5">
                 <h4 class="accordion-header " id="headingOne">
-                    How do I create authenticate?
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        How do I authenticate?
+                    </button>
                 </h4>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        On the top right corner of website, there are 2 buttons wich you can use to either sign in or sign up. If you are
-                        already signed in, a logout button will be shown instead in case you ant to do so
+                        On the top right corner of website, there are 2 buttons wich you can use to either login or register. If you are
+                        already signed in, a logout button will be shown instead in case you want to logout.
                     </div>
                 </div>
             </div>
 
             <div class="accordion-item my-5">
                 <h4 class="accordion-header " id="headingFour">
-                    What happens if I break the rules?
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        What happens if I break the rules?
+                    </button>
                 </h4>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         We expect people to follow rules in order to have a friendly environment. This way, if you break them, administrators
                         can suspend you and will not have access to your account for some time

@@ -62,6 +62,7 @@ class AdminController extends Controller
 
                 return [
                     'reason' => $suspension->reason,
+                    'sort_date' => gmdate('d-m-Y', strtotime($suspension->start_time)),
                     'start_time' => date('F j, Y', strtotime($suspension->start_time)),
                     'end_time' => date('F j, Y', strtotime($suspension->end_time)),
                     'admin' => $adminInfo,
@@ -74,7 +75,6 @@ class AdminController extends Controller
                 'avatar' => $user->avatar,
                 'is_admin' => $user->is_admin,
                 'history' => $history,
-                // The admin could select the user and see his history or see all suspensions
             ];
         });
 
@@ -94,6 +94,7 @@ class AdminController extends Controller
 
             return [
                 'reason' => $suspension->reason,
+                'sort_date' => gmdate('d-m-Y', strtotime($suspension->start_time)),
                 'start_time' => date('F j, Y', strtotime($suspension->start_time)),
                 'end_time' => date('F j, Y', strtotime($suspension->end_time)),
                 'admin' => $adminInfo,
@@ -230,8 +231,8 @@ class AdminController extends Controller
                     'reason' => $report->reason,
                     'reported_at' => date('F j, Y', strtotime($report->reported_at)),
                     'is_closed' => $report->is_closed,
-                    'reported_id' => $reportedInfo,
-                    'reporter_id' => $reporterInfo,
+                    'reported' => $reportedInfo,
+                    'reporter' => $reporterInfo,
                 ];
             });
 

@@ -44,21 +44,6 @@ const suspensionHandler = (elem) => function(){
         return;
     }
 
-    const previousError = elem.querySelector('.error');
-
-    if (this.status == 400) {
-        const error = createErrorMessage(JSON.parse(this.responseText).errors);
-
-        if (previousError)
-            previousError.replaceWith(error);
-        else
-            elem.appendChild(error);
-
-        return;
-    }
-
-    if (previousError) previousError.remove();
-
     const confirmation = document.createElement('h4');
     confirmation.classList.add('mb-0');
     confirmation.innerHTML = JSON.parse(this.responseText).msg;
@@ -72,24 +57,6 @@ const suspendHandler = (elem, reportId) => function(){
         window.location = '/login';
         return;
     }
-
-
-    const previousError = elem.querySelector('.error');
-
-    if (this.status == 400) {
-        const error = createErrorMessage(JSON.parse(this.responseText).errors);
-
-        if (previousError)
-            previousError.replaceWith(error);
-        else
-            elem.insertAdjacentElement('afterend', error);
-
-        return;
-    }
-
-    if (previousError) 
-        previousError.remove();
-
 
     const confirmation = document.createElement('h4');
     confirmation.classList.add('mb-0');

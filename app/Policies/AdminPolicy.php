@@ -33,8 +33,13 @@ class AdminPolicy
         return $user->is_admin;
     }
 
+    public function unsuspendUser(User $user) {
+        return Auth::user()->is_admin;
+    }
+
+
     public function suspendUser(User $user) {
-        return Auth::user()->is_admin && !$user->is_admin;
+        return Auth::user()->is_admin;
     }
 
     /**

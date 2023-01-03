@@ -7,7 +7,7 @@
                 type="button" data-bs-toggle="collapse" data-bs-target="#report-{{ $report['id'] }}"
                 aria-expanded="false" aria-controls="report-{{ $report['id'] }}">
 
-                {{ $report['reported_id']['username'] }}
+                {{ $report['reported']['username'] }}
             </button>
         </h2>
 
@@ -34,28 +34,28 @@
                 </p>
                 <hr>
 
-                <a href="/user/{{ $report['reported_id']['id'] }}" class="my-0">
+                <a href="/user/{{ $report['reported']['id'] }}" class="my-0">
                     <div class="text-center">
                         <img class="w-25" src="{{ 
-                            isset($report['reported_id']['avatar']) 
-                            ? asset('storage/avatars/' . $report['reported_id']['avatar']) 
+                            isset($report['reported']['avatar']) 
+                            ? asset('storage/avatars/' . $report['reported']['avatar']) 
                             : "https://media.istockphoto.com/id/1142192548/vector/man-avatar-profile-male-face-silhouette-or-icon-isolated-on-white-background-vector.jpg?b=1&s=170667a&w=0&k=20&c=X33UQb6kE2ywnnbi0ZinZh_CnCZaPBCguqQayGlD99Y=" 
                             }}"
                             alt="Reported User Avatar"
                             id="avatarImg" onerror="this.src='{{ "https://media.istockphoto.com/id/1142192548/vector/man-avatar-profile-male-face-silhouette-or-icon-isolated-on-white-background-vector.jpg?b=1&s=170667a&w=0&k=20&c=X33UQb6kE2ywnnbi0ZinZh_CnCZaPBCguqQayGlD99Y=" }}'" />
                         
-                        <p> {{ $report['reported_id']['username'] }} </p>
+                        <p> {{ $report['reported']['username'] }} </p>
                     </div>
                 </a>
                 
-                @if ($report['reported_id']['is_suspended'] && $report['is_closed'] )
-                    <button onclick="unsuspendUser(this, {{ $report['reported_id']['id'] }}, {{ $report['id'] }})" type="button" 
+                @if ($report['reported']['is_suspended'] && $report['is_closed'] )
+                    <button onclick="unsuspendUser(this, {{ $report['reported']['id'] }}, {{ $report['id'] }})" type="button" 
                         class="my-0 py-0 btn btn-lg btn-secondary">
                         Unsuspend User
                     </button>
                 @else
                     @if (!$report['is_closed'])
-                        <button id="suspendUserBtn" onclick="toggleSuspendPopup({{ $report['reported_id']['id'] }}, {{ $report['id'] }})" type="button" 
+                        <button id="suspendUserBtn" onclick="toggleSuspendPopup({{ $report['reported']['id'] }}, {{ $report['id'] }})" type="button" 
                             class="mt-4 my-0 py-0 btn btn-lg btn-secondary">
                             Suspend User
                         </button>

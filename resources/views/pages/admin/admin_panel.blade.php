@@ -37,7 +37,7 @@
             <div class="d-flex flex-column manageContainer border bg-light h-100">
                 <div class="linkContainer">
                     <div class="iconContainer shadow-lg rounded-circle bg-dark">
-                        <i class="topicsIcon fas fa-topics text-light"></i>
+                        <i class="fas fa-tags text-light"></i>
                     </div>
                 </div>
                 <div class="manageLink">

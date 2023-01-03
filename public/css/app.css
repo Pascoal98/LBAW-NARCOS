@@ -25,6 +25,13 @@ option {
 
 /* Navbar */
 
+#logo {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+  font-size: 2em;
+}
+
 #searchForm {
   margin-right: auto;
   margin-left: auto;
@@ -520,17 +527,13 @@ option {
 
 /* Navbar and Footer*/
 #footerContainer {
-  min-height: 15vh;
+  
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
 }
 
-#footerContainer #copyrightContainer {
-  background-color: var(--bs-gray-900);
-}
-
-.footerIcons {
-  font-size: 2rem;
-  color: var(--bs-light);
-}
 
 /* Horizontal Divider */
 .horizontalDivider {
