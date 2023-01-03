@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -44,21 +45,5 @@ class LoginController extends Controller
     public function home() {
         return redirect('login');
     }
-
-    protected function authenticated(Request $request, $user)
-    {
-        if ($user->is_suspended) {
-            Auth::logout();
-            $suspension = $user->suspensionEndInfo();
-
-            return back()->withErrors([
-                'suspended' => 'Your account has been suspended by an administrator',
-                'reason' => $suspension['reason'],
-                'endDate' => $suspension['end_date']
-            ]);
-        }
-
-        return redirect()->intended($this->redirectPath());
-    }
-
+    
 }

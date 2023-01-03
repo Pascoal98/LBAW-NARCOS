@@ -26,18 +26,6 @@
             <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
         </label>
 
-        @if ($errors->has('is_suspended'))
-            <div class="error text-danger text-center">
-                {{ $errors->first('is_suspended') }} for the following reason:
-            </div>
-            <div class="error text-danger fw-bold fst-italic my-3">
-                {{ $errors->first('reason') }}
-            </div>
-            <div class="error text-danger mb-3">
-                You will be unsuspended on {{ $errors->first('endDate') }}
-            </div>
-        @endif
-
         <button type="submit">
             Login
         </button>
