@@ -13,16 +13,12 @@ class Comment extends Post
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array
      */
     protected $fillable = [];
 
     public static function boot()
     {
         parent::boot();
-
-        // All the queries are joined with the post table
         static::addGlobalScope(function ($query) {
             $query->join('post', 'post_id', '=', 'id');
         });

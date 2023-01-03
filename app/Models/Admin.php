@@ -9,8 +9,6 @@ class Admin extends User
     public static function boot()
     {
         parent::boot();
-
-        // All the queries are the same as User but only for admins
         static::addGlobalScope(function ($query) {
             $query->where('is_admin', true);
         });

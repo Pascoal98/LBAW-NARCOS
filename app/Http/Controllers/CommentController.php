@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Validator;
 class CommentController extends Controller
 {
     
+    /**
+     * Posts Comment on an article
+     */
     public function create(Request $request)
     {
         $this->authorize('create', Post::class);
@@ -65,6 +68,9 @@ class CommentController extends Controller
     }
 
 
+    /**
+     * Updates article
+     */
     public function update(Request $request, int $id)
     {
 
@@ -110,11 +116,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Deletes a Comment.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $article
-     * @return \Illuminate\Http\Response
+     * Deletes a Comment
      */
     public function destroy(Request $request, int $id)
     {

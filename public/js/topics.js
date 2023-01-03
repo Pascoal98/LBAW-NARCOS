@@ -24,7 +24,6 @@ function proposeTopicHandler() {
     }
 
     if (previousError) previousError.remove();
-    console.log("worked");
     const confirmation = document.createElement('h4');
     confirmation.classList.add('mb-0');
     confirmation.innerHTML = 'Thank you for your contribution!';

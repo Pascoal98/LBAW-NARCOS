@@ -12,7 +12,7 @@ class TopicPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can accept a topic.
+     * Check whether the user can accept a topic.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -23,7 +23,7 @@ class TopicPolicy
     }
 
     /**
-     * Determine whether the user can reject a topic.
+     * Check whether the user can reject a topic.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
@@ -34,7 +34,7 @@ class TopicPolicy
     }
 
     /**
-     * Determine whether the user can add a topic to its favorites
+     * Check whether the user can add a topic to its favorites
      */
     public function addFavorite(User $user)
     {
@@ -42,13 +42,12 @@ class TopicPolicy
     }
 
     /**
-     * Determine whether the user can add a topic to its favorites
+     * Check whether the user can add a topic to its favorites
      */
     public function removeFavorite(User $user)
     {
         return Auth::check();
     }
-
 
     public function destroy(User $user)
     {

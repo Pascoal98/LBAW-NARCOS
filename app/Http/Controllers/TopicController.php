@@ -15,6 +15,9 @@ class TopicController extends Controller
         'pending' => 'PENDING'
     ];
     
+    /**
+     * Accepts Topic to be used
+     */
     public function accept(int $topic_id)
     {
         $this->authorize('accept', Topic::class);
@@ -44,7 +47,9 @@ class TopicController extends Controller
         ], 200);
     }
 
-    
+    /**
+     * Rejects Topic to be used
+     */
     public function reject(int $topic_id)
     {
         $this->authorize('reject', Topic::class);
@@ -74,7 +79,9 @@ class TopicController extends Controller
         ], 200);
     }
 
-    
+    /**
+     * Add topic to user favorite
+     */
     public function addUserFavorite($topic_id)
     {
         $this->authorize('addFavorite', Topic::class);
@@ -106,6 +113,9 @@ class TopicController extends Controller
     }
 
     
+    /**
+     * Remove topic from user favorite
+     */
     public function removeUserFavorite($topic_id)
     {
         $this->authorize('removeFavorite', Topic::class);
@@ -136,7 +146,9 @@ class TopicController extends Controller
         ], 200);
     }
 
-
+    /**
+     * Deletes Topic
+     */
     public function destroy(int $id)
     {
         $this->authorize('destroy', Topic::class);
@@ -166,6 +178,9 @@ class TopicController extends Controller
     }
 
     
+    /**
+     * Proposes Topic to be used
+     */
     public function propose(Request $request)
     {
         $this->authorize('propose', Topic::class);

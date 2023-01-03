@@ -15,8 +15,6 @@ class HomeController extends Controller
 
     /**
      * Displays the home page
-     * 
-     * @return View
      */
     public function show()
     {
@@ -34,9 +32,6 @@ class HomeController extends Controller
 
     /**
      * Return a partial with the filtered articles
-     * 
-     * @param  Illuminate\Http\Request  $request
-     * @return Response
      */
     public function filter(Request $request)
     {

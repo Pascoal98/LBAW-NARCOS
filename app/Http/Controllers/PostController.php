@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     
+    /**
+     * Gives feedback to post(article or comment)
+     */
     public function giveFeedback(Request $request, int $id)
     {
         $post = Post::find($id);
@@ -58,6 +61,9 @@ class PostController extends Controller
         ], 200);
     }
 
+    /**
+     * Removes feedback from post(article or comment)
+     */
     public function removeFeedback(Request $request, int $id)
     {   
         if (Auth::guest())

@@ -9,15 +9,13 @@ class User extends Authenticatable
 {
     use  HasFactory;
 
-    // Don't add create and update timestamps in database.
     public $timestamps  = false;
 
     protected $table = 'authenticated_user';
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array
+
      */
     protected $fillable = [
         'username', 'email', 'password', 'date_of_birth',
@@ -87,7 +85,6 @@ class User extends Authenticatable
         return count($followList) > 0;
     }
 
-    // Gets the info on the suspension with the farthest end_time
     public function suspensionEndInfo()
     {
         $suspension = $this->suspensions->sortByDesc('end_time')->first();

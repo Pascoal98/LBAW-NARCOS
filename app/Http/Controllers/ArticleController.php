@@ -17,6 +17,9 @@ class ArticleController extends Controller
 {
     private const COMMENTS_LIMIT = 10;
 
+    /**
+     *  Shows form to create an article
+     */
     public function createForm() 
     {
         if (Auth::guest()) 
@@ -46,7 +49,9 @@ class ArticleController extends Controller
         ]);
     }
 
-
+    /**
+     * Function to create article
+     */
     public function create(Request $request)
     {
         if (Auth::guest()) {
@@ -110,10 +115,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display Article Page.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\Response
+     * Show Article Page.
      */
     public function show(int $id)
     {
@@ -187,6 +189,9 @@ class ArticleController extends Controller
         ]);
     }
 
+    /**
+     * Display comments of a certain article
+     */
     public function comments(Request $request, int $id)
     {
         $article = Article::find($id);
@@ -221,6 +226,9 @@ class ArticleController extends Controller
         ], 200);
     }
 
+    /**
+     * Show form to edit article
+     */
     public function edit(int $id)
     {
         $article = Article::find($id);
@@ -264,6 +272,9 @@ class ArticleController extends Controller
         ]);
     }
 
+    /**
+     * Updates article with the changes done
+     */
     public function update(Request $request, int $id) : RedirectResponse
     {
 
@@ -334,6 +345,9 @@ class ArticleController extends Controller
     }
 
 
+    /**
+     * Deletes article
+     */
     public function delete(Request $request, int $id)
     {
 

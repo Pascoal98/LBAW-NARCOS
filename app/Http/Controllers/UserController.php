@@ -16,6 +16,9 @@ class UserController extends Controller
 {
     private const USER_ARTICLES_LIMIT = 5;
 
+    /**
+     * Show user profile
+     */
     public function show(int $id)
     {
         $user = User::find($id);
@@ -61,6 +64,9 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Deletes user 
+     */
     public function delete(Request $request, int $id): RedirectResponse
     {
         $user = User::find($id);
@@ -82,6 +88,9 @@ class UserController extends Controller
             return redirect()->back()->withErrors(['user' => 'Failed to delete user account. Try again later']);
     }
 
+    /**
+     * Shows edit form
+     */
     public function edit(int $id)
     {
         $user = User::find($id);
@@ -118,6 +127,9 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Report another user
+     */
     public function report(Request $request, int $id)
     {
         $user = User::find($id);
@@ -155,6 +167,9 @@ class UserController extends Controller
         ], 200);
     }
 
+    /**
+     * Updates user profile after editing
+     */
     public function update(Request $request, int $id): RedirectResponse
     {
         $user = User::find($id);
@@ -214,6 +229,9 @@ class UserController extends Controller
         return redirect("/user/${id}");
     }
 
+    /**
+     * List of users that the account follows
+     */
     public function followed(int $id)
     {
         $user = User::find($id);
@@ -239,6 +257,9 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Function to follow a user
+     */
     public function follow(int $id)
     {
         $userToFollow = User::find($id);
@@ -267,6 +288,9 @@ class UserController extends Controller
         ], 200);
     }
 
+    /**
+     * Function to unfollow user
+     */
     public function unfollow(int $id)
     {
         $userToUnfollow = User::find($id);

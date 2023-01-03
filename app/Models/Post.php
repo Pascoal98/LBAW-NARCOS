@@ -12,8 +12,6 @@ class Post extends Model
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array
      */
     protected $fillable = [
         'body', 'published_date', 'is_edited'

@@ -110,10 +110,6 @@ class AdminController extends Controller
 
     /**
      * Suspends a user
-     * 
-     * @param  Illuminate\Http\Request  $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function suspendUser(Request $request, int $id)
     {  
@@ -171,10 +167,6 @@ class AdminController extends Controller
 
     /**
      * Suspends a user
-     * 
-     * @param  Illuminate\Http\Request  $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function unsuspendUser(int $id)
     {
@@ -209,8 +201,6 @@ class AdminController extends Controller
 
     /**
      * Page with information about all the reports
-     * 
-     * @return View
      */
     public function reports()
     {
@@ -243,8 +233,6 @@ class AdminController extends Controller
 
     /**
      * Page where the admin can accept or refuse topics
-     * 
-     * @return View
      */
     public function topics()
     {

@@ -12,8 +12,6 @@ class Article extends Post
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array
      */
     protected $fillable = [
         'title', 'thumbnail',
@@ -22,8 +20,6 @@ class Article extends Post
     public static function boot()
     {
         parent::boot();
-
-        // All the queries are joined with the content table
         static::addGlobalScope(function ($query) {
             $query->join('post', 'post_id', '=', 'id');
         });

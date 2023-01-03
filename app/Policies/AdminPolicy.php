@@ -12,7 +12,7 @@ class AdminPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the admin panel.
+     * Check whether the user can view the admin panel.
      */
     public function show(User $user)
     {
@@ -20,25 +20,30 @@ class AdminPolicy
     }
 
     /**
-     * Determine whether the user can view the list of suspended users.
+     * Check whether the user can view the list of suspended users.
      */
     public function suspensions(User $user)
     {
         return $user->is_admin;
     }
 
+    /**
+     * Check if the user can remove the suspension of an user
+     */
     public function unsuspendUser(User $user) {
         return Auth::user()->is_admin;
     }
 
-
+    /**
+     * Check of the user can suspend another user
+     */
     public function suspendUser(User $user) {
         return Auth::user()->is_admin;
     }
 
 
     /**
-     * Determine whether the user can view the list of reports.
+     * Check whether the user can view the list of reports.
      */
     public function reports(User $user)
     {
@@ -46,7 +51,7 @@ class AdminPolicy
     }
 
     /**
-     * Determine whether the user can manage t.
+     * Check whether the user can manage topics.
      */
     public function topics(User $user)
     {
@@ -54,7 +59,7 @@ class AdminPolicy
     }
 
     /**
-     * Determine whether the user can close reports.
+     * Check whether the user can close reports.
      */
     public function closeReport(User $user, Report $report)
     {
